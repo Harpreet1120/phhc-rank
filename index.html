@@ -262,7 +262,7 @@
       throw new Error("लिंक से आंसर की लोड नहीं हो सकी। कृपया इंटरनेट कनेक्शन और लिंक चेक करें।");
     }
 
-    // 100% FIXED & VERIFIED TCS iON PARSER
+    // 100% BULLETPROOF PARSER
     function parseTCSHtml(htmlString) {
       const parser = new DOMParser();
       const doc = parser.parseFromString(htmlString, "text/html");
@@ -272,44 +272,45 @@
       let examDate = "";
       let shift = "";
 
-      // 1. Candidate Info
-      const allTrs = doc.querySelectorAll("tr");
-      allTrs.forEach((r) => {
-        const text = r.textContent.trim();
-        if (!rollNumber) {
-          const m = text.match(/(?:Participant\s*ID|Roll\s*Number|Candidate\s*ID)\s*[:\-]?\s*([A-Za-z0-9]+)/i);
-          if (m && m) rollNumber = m.trim();
-        }
-        if (!candidateName) {
-          const m = text.match(/(?:Participant\s*Name|Candidate\s*Name)\s*[:\-]?\s*([A-Za-z\s\.]+?)(?:Test|Subject|Roll|$)/i);
-          if (m && m) candidateName = m.replace(/[:\-]/g, "").trim();
-        }
-        if (!examDate) {
-          const m = text.match(/(?:Test\s*Date|Exam\s*Date)\s*[:\-]?\s*([0-9\/\-]+)/i);
-          if (m && m) examDate = m.trim();
-        }
-        if (!shift) {
-          const m = text.match(/(?:Test\s*Time|Shift)\s*[:\-]?\s*([0-9:AMP\s\-]+)/i);
-          if (m && m) shift = m.trim();
-        }
-      });
-
-      // Fallback for Candidate Info
-      if (!rollNumber || !candidateName) {
-        const tds = Array.from(doc.querySelectorAll("td"));
-        for (let i = 0; i < tds.length; i++) {
-          const txt = tds[i].textContent.trim().toLowerCase();
-          if (!rollNumber && (txt.includes("participant id") || txt.includes("roll number") || txt.includes("candidate id"))) {
-            const next = tds[i+1]?.textContent.replace(/^[:\s]+/, "").trim();
-            if (next && next !== ":") rollNumber = next;
+      // 1. Candidate Info (Cell by cell scanning)
+      const allTds = Array.from(doc.querySelectorAll("td, th"));
+      for (let i = 0; i < allTds.length; i++) {
+        const txt = (allTds[i].textContent || "").trim().toLowerCase();
+        
+        if (!rollNumber && (txt.includes("participant id") || txt.includes("roll number") || txt.includes("candidate id"))) {
+          for (let j = 1; j <= 3; j++) {
+            const val = (allTds[i + j]?.textContent || "").trim();
+            if (val && val !== ":" && val !== "-") {
+              rollNumber = val;
+              break;
+            }
           }
-          if (!candidateName && (txt.includes("participant name") || txt.includes("candidate name"))) {
-            const next = tds[i+1]?.textContent.replace(/^[:\s]+/, "").trim();
-            if (next && next !== ":") candidateName = next;
+        }
+        if (!candidateName && (txt.includes("participant name") || txt.includes("candidate name"))) {
+          for (let j = 1; j <= 3; j++) {
+            const val = (allTds[i + j]?.textContent || "").trim();
+            if (val && val !== ":" && val !== "-") {
+              candidateName = val;
+              break;
+            }
           }
-          if (!shift && (txt.includes("test time") || txt.includes("shift"))) {
-            const next = tds[i+1]?.textContent.replace(/^[:\s]+/, "").trim();
-            if (next && next !== ":") shift = next;
+        }
+        if (!examDate && (txt.includes("test date") || txt.includes("exam date"))) {
+          for (let j = 1; j <= 3; j++) {
+            const val = (allTds[i + j]?.textContent || "").trim();
+            if (val && val !== ":" && val !== "-") {
+              examDate = val;
+              break;
+            }
+          }
+        }
+        if (!shift && (txt.includes("test time") || txt.includes("shift"))) {
+          for (let j = 1; j <= 3; j++) {
+            const val = (allTds[i + j]?.textContent || "").trim();
+            if (val && val !== ":" && val !== "-") {
+              shift = val;
+              break;
+            }
           }
         }
       }
@@ -326,23 +327,22 @@
       }
 
       let correct = 0, wrong = 0, unattempted = 0;
-      const letterToNum = { 'A': '1', 'B': '2', 'C': '3', 'D': '4' };
 
       panels.forEach((panel) => {
         let chosen = "";
         let correctAns = "";
 
         // A. Extract Chosen Option from menu-tbl
-        const allRows = panel.querySelectorAll("tr");
-        allRows.forEach((r) => {
-          const rowText = r.textContent;
-          if (rowText.includes("Chosen Option")) {
-            const m = rowText.match(/Chosen\s*Option\s*[:\-]?\s*([1-4A-D]|\-\-)/i);
-            if (m && m) {
-              chosen = m.trim();
+        const menuRows = panel.querySelectorAll(".menu-tbl tr, tr");
+        menuRows.forEach((r) => {
+          const text = r.textContent || "";
+          if (text.includes("Chosen Option")) {
+            const lastTd = r.querySelector("td:last-child");
+            if (lastTd) {
+              chosen = (lastTd.textContent || "").trim();
             } else {
-              const valTd = r.querySelector("td:last-child");
-              chosen = valTd ? valTd.textContent.trim() : "";
+              const parts = text.split(":");
+              chosen = parts[parts.length - 1].trim();
             }
           }
         });
@@ -353,19 +353,14 @@
           const tr = rightElem.closest("tr");
           if (tr) {
             const firstTd = tr.querySelector("td:first-child");
-            const firstTxt = firstTd ? firstTd.textContent.trim() : tr.textContent.trim();
-            const numMatch = firstTxt.match(/([1-4])/);
-            if (numMatch && numMatch) {
-              correctAns = numMatch;
-            } else {
-              const letMatch = firstTxt.match(/([A-D])/i);
-              if (letMatch && letMatch) {
-                correctAns = letterToNum[letMatch[1].toUpperCase()];
-              }
+            const firstTxt = (firstTd ? firstTd.textContent : tr.textContent) || "";
+            const m = firstTxt.match(/([1-4])/);
+            if (m && m) {
+              correctAns = m;
             }
           }
 
-          // Row position fallback if no number found
+          // Fallback based on option row index
           if (!correctAns) {
             const optRows = Array.from(panel.querySelectorAll(".questionRowTbl tr")).filter(r => !r.querySelector(".menu-tbl"));
             if (optRows.length >= 4) {
@@ -380,17 +375,13 @@
         }
 
         // Clean & Normalize
-        let cleanChosen = chosen.replace(/[^0-9A-Za-z]/g, "").toUpperCase();
-        if (letterToNum[cleanChosen]) cleanChosen = letterToNum[cleanChosen];
-        if (letterToNum[correctAns]) correctAns = letterToNum[correctAns];
+        const cleanChosen = chosen.replace(/[^1-4]/g, "");
+        const cleanCorrect = correctAns.replace(/[^1-4]/g, "");
 
-        cleanChosen = cleanChosen.replace(/[^1-4]/g, "");
-        correctAns = (correctAns || "").replace(/[^1-4]/g, "");
-
-        // Comparison
+        // Exact String Comparison
         if (!cleanChosen || cleanChosen === "" || chosen.includes("--") || chosen.toLowerCase().includes("not")) {
           unattempted++;
-        } else if (correctAns && cleanChosen === correctAns) {
+        } else if (cleanCorrect && cleanChosen === cleanCorrect) {
           correct++;
         } else {
           wrong++;
