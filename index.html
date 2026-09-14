@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Punjab & Haryana High Court - Rank Predictor</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen py-10 px-4">
+
+  <div class="max-w-3xl mx-auto space-y-6">
+    <div class="text-center space-y-1">
+      <h1 class="text-3xl font-extrabold text-indigo-900">Punjab & Haryana High Court</h1>
+      <p class="text-slate-600 text-sm">Real-Time Response Sheet Rank & Score Calculator</p>
+    </div>
+
+    <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200">
+      <form id="rankForm" class="space-y-4">
+        <div>
+          <label class="block text-sm font-semibold text-slate-700 mb-1">
+            Response Sheet का HTML Source Code
+          </label>
+          <textarea id="htmlInput" rows="6" required 
+            placeholder="आंसर की वाले पेज पर Ctrl+U दबाएँ, पूरा कोड कॉपी करके यहाँ पेस्ट करें..." 
+            class="w-full p-3 border border-slate-300 rounded-xl text-xs font-mono focus:ring-2 focus:ring-indigo-500 focus:outline-none"></textarea>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-1">Category</label>
+            <select id="categoryInput" class="w-full p-2.5 border border-slate-300 rounded-xl text-sm bg-white focus:ring-2 focus:ring-indigo-500">
+              <option value="General">General / UR</option>
+              <option value="EWS">EWS</option>
+              <option value="DSC">DSC (Deprived SC)</option>
+              <option value="OSC">OSC (Other SC)</option>
+              <option value="BC-A">BC-A (Backward Class Block-A)</option>
+              <option value="BC-B">BC-B (Backward Class Block-B)</option>
+              <option value="ESM">ESM (Ex-Servicemen)</option>
+              <option value="PwD">PwD (PH / दिव्यांग)</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-1">4-Digit Security PIN</label>
+            <input type="password" id="pinInput" maxlength="4" required placeholder="उदा. 1234" 
+              class="w-full p-2.5 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-indigo-500">
+          </div>
+        </div>
+
+        <button type="submit" id="submitBtn" 
+          class="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-xl transition flex items-center justify-center gap-2">
+          Score और Rank चेक करें
+        </button>
+      </form>
+      <div id="statusMsg" class="mt-3 text-sm text-center hidden"></div>
+    </div>
+
+    <div id="resultCard" class="hidden space-y-4">
+      <div class="bg-indigo-50 border border-indigo-100 p-4 rounded-xl flex flex-wrap justify-between text-sm text-indigo-950">
+        <div><strong>Name:</strong> <span id="resName">-</span></div>
+        <div><strong>Roll No:</strong> <span id="resRoll">-</span></div>
+        <div><strong>Shift:</strong> <span id="resShift">-</span></div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-white">
+        <div class="bg-indigo-600 p-5 rounded-2xl shadow-sm">
+          <div class="text-xs uppercase font-medium opacity-80">Overall Rank</div>
+          <div class="text-3xl font-extrabold mt-1" id="overallRank">-</div>
+        </div>
+        <div class="bg-emerald-600 p-5 rounded-2xl shadow-sm">
+          <div class="text-xs uppercase font-medium opacity-80">Category Rank</div>
+          <div class="text-3xl font-extrabold mt-1" id="categoryRank">-</div>
+        </div>
+        <div class="bg-violet-600 p-5 rounded-2xl shadow-sm">
+          <div class="text-xs uppercase font-medium opacity-80">Shift Rank</div>
+          <div class="text-3xl font-extrabold mt-1" id="shiftRank">-</div>
+        </div>
+      </div>
+
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+        <div>
+          <div class="text-xs text-slate-500">Total Marks</div>
+          <div class="text-2xl font-bold text-indigo-600" id="totalMarks">-</div>
+        </div>
+        <div>
+          <div class="text-xs text-slate-500">Correct (+1)</div>
+          <div class="text-2xl font-bold text-emerald-600" id="correctCount">-</div>
+        </div>
+        <div>
+          <div class="text-xs text-slate-500">Wrong (-0.25)</div>
+          <div class="text-2xl font-bold text-red-600" id="wrongCount">-</div>
+        </div>
+        <div>
+          <div class="text-xs text-slate-500">Unattempted</div>
+          <div class="text-2xl font-bold text-slate-600" id="unattemptedCount">-</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const SUPABASE_URL = 'https://avsqfhktifquwxpmizlb.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_uxzspvVC2JTuu6fOTp75Og_jrs2f2J9';
+    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    function parseHTML(rawHtml) {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(rawHtml, "text/html");
+
+      let rollNumber = "";
+      let candidateName = "";
+      let examDate = "";
+      let shift = "";
+
+      const tds = Array.from(doc.querySelectorAll("td"));
+      for (let i = 0; i < tds.length; i++) {
+        const txt = tds[i].textContent.trim().toLowerCase();
+        if (txt.includes("roll number") || txt.includes("candidate id")) {
+          rollNumber = tds[i + 1]?.textContent.trim() || "";
+        } else if (txt.includes("candidate name")) {
+          candidateName = tds[i + 1]?.textContent.trim() || "";
+        } else if (txt.includes("test date")) {
+          examDate = tds[i + 1]?.textContent.trim() || "";
+        } else if (txt.includes("test time")) {
+          shift = tds[i + 1]?.textContent.trim() || "";
+        }
+      }
+
+      let correct = 0, wrong = 0, unattempted = 0;
+      const questions = doc.querySelectorAll(".menu-tbl");
+
+      questions.forEach((q) => {
+        let chosen = "";
+        let correctAns = "";
+
+        q.querySelectorAll("tr").forEach((r) => {
+          if (r.textContent.includes("Chosen Option")) {
+            chosen = r.querySelector("td:last-child")?.textContent.trim() || "";
+          }
+        });
+
+        const rightAnsElem = q.querySelector(".rightAns");
+        if (rightAnsElem) {
+          correctAns = rightAnsElem.textContent.trim();
+        }
+
+        if (!chosen || chosen === "--" || chosen.toLowerCase().includes("not")) {
+          unattempted++;
+        } else if (chosen === correctAns || (correctAns && correctAns.includes(chosen))) {
+          correct++;
+        } else {
+          wrong++;
+        }
+      });
+
+      const totalScore = parseFloat((correct * 1.0 - wrong * 0.25).toFixed(2));
+
+      return {
+        rollNumber: rollNumber || "PHHC" + Math.floor(100000 + Math.random() * 900000),
+        candidateName: candidateName || "Candidate",
+        examDate: examDate || "N/A",
+        shift: shift || "General Shift",
+        correct,
+        wrong,
+        unattempted,
+        totalScore
+      };
+    }
+
+    document.getElementById("rankForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const status = document.getElementById("statusMsg");
+      const btn = document.getElementById("submitBtn");
+
+      status.classList.remove("hidden", "text-red-600");
+      status.classList.add("text-indigo-600");
+      status.innerText = "स्कोर और रैंक कैलकुलेट हो रही है...";
+      btn.disabled = true;
+
+      try {
+        const html = document.getElementById("htmlInput").value;
+        const cat = document.getElementById("categoryInput").value;
+        const pin = document.getElementById("pinInput").value;
+
+        const parsed = parseHTML(html);
+
+        const { error: upsertErr } = await supabaseClient.rpc("upsert_score", {
+          p_roll_number: parsed.rollNumber,
+          p_name: parsed.candidateName,
+          p_category: cat,
+          p_pin: pin,
+          p_exam_date: parsed.examDate,
+          p_shift: parsed.shift,
+          p_correct: parsed.correct,
+          p_wrong: parsed.wrong,
+          p_unattempted: parsed.unattempted,
+          p_total: parsed.totalScore,
+          p_sections: {}
+        });
+
+        if (upsertErr) throw upsertErr;
+
+        const { data: rankStats, error: rankErr } = await supabaseClient.rpc("get_candidate_rank_stats", {
+          p_roll_number: parsed.rollNumber
+        });
+
+        if (rankErr) throw rankErr;
+
+        document.getElementById("resName").innerText = parsed.candidateName;
+        document.getElementById("resRoll").innerText = parsed.rollNumber;
+        document.getElementById("resShift").innerText = parsed.shift;
+
+        document.getElementById("totalMarks").innerText = parsed.totalScore;
+        document.getElementById("correctCount").innerText = parsed.correct;
+        document.getElementById("wrongCount").innerText = parsed.wrong;
+        document.getElementById("unattemptedCount").innerText = parsed.unattempted;
+
+        document.getElementById("overallRank").innerText = `${rankStats.overall_rank} / ${rankStats.total_candidates}`;
+        document.getElementById("categoryRank").innerText = `${rankStats.category_rank} / ${rankStats.total_category_candidates}`;
+        document.getElementById("shiftRank").innerText = `${rankStats.shift_rank} / ${rankStats.total_shift_candidates}`;
+
+        document.getElementById("resultCard").classList.remove("hidden");
+        status.classList.add("hidden");
+      } catch (err) {
+        status.classList.remove("text-indigo-600");
+        status.classList.add("text-red-600");
+        status.innerText = err.message || "कैलकुलेशन में कोई समस्या आई।";
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
