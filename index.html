@@ -117,12 +117,14 @@
 
       <!-- RESULTS -->
       <div id="resultCard" class="hidden space-y-5">
+        <!-- Candidate Metadata -->
         <div class="bg-indigo-50 border border-indigo-100 p-4 rounded-xl flex flex-wrap justify-between text-sm text-indigo-950 font-medium">
           <div><strong>Name:</strong> <span id="resName">-</span></div>
           <div><strong>Roll No:</strong> <span id="resRoll">-</span></div>
           <div><strong>Shift:</strong> <span id="resShift">-</span></div>
         </div>
 
+        <!-- Rank Badges -->
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-white">
           <div class="bg-indigo-600 p-5 rounded-2xl shadow-sm">
             <div class="text-xs uppercase font-medium opacity-80">Overall Rank</div>
@@ -138,22 +140,37 @@
           </div>
         </div>
 
-        <div class="bg-white p-5 rounded-2xl border border-slate-200 grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
-          <div>
-            <div class="text-xs text-slate-500">Total Marks</div>
-            <div class="text-2xl font-bold text-indigo-600" id="totalMarks">-</div>
+        <!-- SUBJECT WISE MARKS DETAILS TABLE (हूबहू RankMitra स्टाइल) -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-md overflow-hidden">
+          <div class="bg-blue-600 text-white text-center py-3.5 px-4">
+            <h2 class="text-xl sm:text-2xl font-black tracking-wide">
+              Subject Wise Marks Details
+            </h2>
           </div>
-          <div>
-            <div class="text-xs text-slate-500">Correct (+1)</div>
-            <div class="text-2xl font-bold text-emerald-600" id="correctCount">-</div>
+
+          <div class="bg-slate-50 py-2.5 px-4 text-center border-b border-slate-200 text-xs sm:text-sm font-semibold text-slate-700">
+            Current Marking Scheme: 
+            <span class="text-emerald-600 font-bold ml-1">Right Question: +1</span> || 
+            <span class="text-red-600 font-bold ml-1">Wrong Question: -0.25</span>
           </div>
-          <div>
-            <div class="text-xs text-slate-500">Wrong (-0.25)</div>
-            <div class="text-2xl font-bold text-red-600" id="wrongCount">-</div>
-          </div>
-          <div>
-            <div class="text-xs text-slate-500">Unattempted</div>
-            <div class="text-2xl font-bold text-slate-600" id="unattemptedCount">-</div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-center text-sm sm:text-base border-collapse">
+              <thead>
+                <tr class="text-slate-800 font-bold text-xs sm:text-sm uppercase border-b border-slate-200 bg-white">
+                  <th class="py-3 px-3 sm:px-4 text-left">Subject</th>
+                  <th class="py-3 px-3 sm:px-4">Attempt</th>
+                  <th class="py-3 px-3 sm:px-4">NA</th>
+                  <th class="py-3 px-3 sm:px-4 text-emerald-600">R</th>
+                  <th class="py-3 px-3 sm:px-4 text-red-600">W</th>
+                  <th class="py-3 px-3 sm:px-4 font-black">Marks</th>
+                </tr>
+              </thead>
+              <tbody id="subjectTableBody">
+              </tbody>
+              <tfoot id="overallTableFoot">
+              </tfoot>
+            </table>
           </div>
         </div>
 
@@ -262,7 +279,7 @@
       throw new Error("लिंक से आंसर की लोड नहीं हो सकी। कृपया इंटरनेट कनेक्शन और लिंक चेक करें।");
     }
 
-    // 100% BULLETPROOF PARSER
+    // 100% BULLETPROOF STRING-BASED PARSER
     function parseTCSHtml(htmlString) {
       const parser = new DOMParser();
       const doc = parser.parseFromString(htmlString, "text/html");
@@ -272,7 +289,7 @@
       let examDate = "";
       let shift = "";
 
-      // 1. Candidate Info (Cell by cell scanning)
+      // Candidate Metadata (Safe Cell-by-Cell Traversal)
       const allTds = Array.from(doc.querySelectorAll("td, th"));
       for (let i = 0; i < allTds.length; i++) {
         const txt = (allTds[i].textContent || "").trim().toLowerCase();
@@ -315,90 +332,125 @@
         }
       }
 
-      // 2. Question Panels
-      let panels = Array.from(doc.querySelectorAll(".question-pnl"));
-      if (panels.length === 0) {
-        const menus = doc.querySelectorAll(".menu-tbl");
-        panels = Array.from(menus).map(m => m.closest("div") || m.parentElement);
+      // Sections Handling
+      const subjectDetails = [];
+      let totalCorrect = 0, totalWrong = 0, totalUnattempted = 0;
+
+      let sections = Array.from(doc.querySelectorAll(".section-cntnr"));
+      if (sections.length === 0) {
+        sections = Array.from(doc.querySelectorAll(".grp-cntnr"));
+      }
+      if (sections.length === 0) {
+        sections = [doc.body];
       }
 
-      if (panels.length === 0) {
-        throw new Error("आंसर की में प्रश्न नहीं मिले। क्या यह सही आंसर की का लिंक है?");
-      }
+      sections.forEach((sec, sIdx) => {
+        let secTitle = sec.querySelector(".section-lbl")?.textContent?.replace(/Section\s*:/i, "").trim();
+        if (!secTitle || secTitle === "") {
+          secTitle = `Subject-${sIdx + 1}`;
+        }
+        secTitle = secTitle.replace(/\s+/g, " ");
 
-      let correct = 0, wrong = 0, unattempted = 0;
+        let secCorrect = 0, secWrong = 0, secUnattempted = 0;
 
-      panels.forEach((panel) => {
-        let chosen = "";
-        let correctAns = "";
+        let panels = Array.from(sec.querySelectorAll(".question-pnl"));
+        if (panels.length === 0) {
+          const menus = sec.querySelectorAll(".menu-tbl");
+          panels = Array.from(menus).map(m => m.closest("div") || m.parentElement);
+        }
 
-        // A. Extract Chosen Option from menu-tbl
-        const menuRows = panel.querySelectorAll(".menu-tbl tr, tr");
-        menuRows.forEach((r) => {
-          const text = r.textContent || "";
-          if (text.includes("Chosen Option")) {
-            const lastTd = r.querySelector("td:last-child");
-            if (lastTd) {
-              chosen = (lastTd.textContent || "").trim();
-            } else {
-              const parts = text.split(":");
-              chosen = parts[parts.length - 1].trim();
+        panels.forEach((panel) => {
+          let chosen = "";
+          let correctAns = "";
+
+          // 1. Chosen Option
+          const menuRows = panel.querySelectorAll(".menu-tbl tr, tr");
+          menuRows.forEach((r) => {
+            const text = r.textContent || "";
+            if (text.includes("Chosen Option")) {
+              const lastTd = r.querySelector("td:last-child");
+              if (lastTd) {
+                chosen = (lastTd.textContent || "").trim();
+              } else {
+                const parts = text.split(":");
+                chosen = parts[parts.length - 1].trim();
+              }
             }
+          });
+
+          // 2. Correct Option (Find rightAns or tick image)
+          const rightElem = panel.querySelector("td.rightAns, .rightAns, img[src*='tick']");
+          if (rightElem) {
+            const tr = rightElem.closest("tr");
+            if (tr) {
+              const firstTd = tr.querySelector("td:first-child");
+              const firstTxt = (firstTd ? firstTd.textContent : tr.textContent) || "";
+              // Extract single digit strictly as string
+              const cleanDigits = firstTxt.replace(/[^1-4]/g, "");
+              if (cleanDigits.length > 0) {
+                correctAns = cleanDigits.charAt(0);
+              }
+            }
+
+            // Fallback: 4 Option rows
+            if (!correctAns) {
+              const optRows = Array.from(panel.querySelectorAll(".questionRowTbl tr")).filter(r => !r.querySelector(".menu-tbl"));
+              if (optRows.length >= 4) {
+                const last4 = optRows.slice(-4);
+                last4.forEach((r, idx) => {
+                  if (r.contains(rightElem) || r === rightElem) {
+                    correctAns = String(idx + 1);
+                  }
+                });
+              }
+            }
+          }
+
+          // Strict 1-digit string comparison
+          const cleanChosen = chosen.replace(/[^1-4]/g, "").charAt(0);
+          const cleanCorrect = (correctAns || "").replace(/[^1-4]/g, "").charAt(0);
+
+          if (!cleanChosen || cleanChosen === "" || chosen.includes("--") || chosen.toLowerCase().includes("not")) {
+            totalUnattempted++;
+            secUnattempted++;
+          } else if (cleanCorrect !== "" && cleanChosen === cleanCorrect) {
+            totalCorrect++;
+            secCorrect++;
+          } else {
+            totalWrong++;
+            secWrong++;
           }
         });
 
-        // B. Extract Correct Option (Search for td.rightAns or tick)
-        const rightElem = panel.querySelector("td.rightAns, .rightAns, img[src*='tick']");
-        if (rightElem) {
-          const tr = rightElem.closest("tr");
-          if (tr) {
-            const firstTd = tr.querySelector("td:first-child");
-            const firstTxt = (firstTd ? firstTd.textContent : tr.textContent) || "";
-            const m = firstTxt.match(/([1-4])/);
-            if (m && m) {
-              correctAns = m;
-            }
-          }
+        const secAttempted = secCorrect + secWrong;
+        const secMarks = parseFloat((secCorrect * 1.0 - secWrong * 0.25).toFixed(2));
 
-          // Fallback based on option row index
-          if (!correctAns) {
-            const optRows = Array.from(panel.querySelectorAll(".questionRowTbl tr")).filter(r => !r.querySelector(".menu-tbl"));
-            if (optRows.length >= 4) {
-              const last4 = optRows.slice(-4);
-              last4.forEach((r, idx) => {
-                if (r.contains(rightElem) || r === rightElem) {
-                  correctAns = String(idx + 1);
-                }
-              });
-            }
-          }
-        }
-
-        // Clean & Normalize
-        const cleanChosen = chosen.replace(/[^1-4]/g, "");
-        const cleanCorrect = correctAns.replace(/[^1-4]/g, "");
-
-        // Exact String Comparison
-        if (!cleanChosen || cleanChosen === "" || chosen.includes("--") || chosen.toLowerCase().includes("not")) {
-          unattempted++;
-        } else if (cleanCorrect && cleanChosen === cleanCorrect) {
-          correct++;
-        } else {
-          wrong++;
+        if (panels.length > 0) {
+          subjectDetails.push({
+            name: secTitle,
+            attempt: secAttempted,
+            na: secUnattempted,
+            r: secCorrect,
+            w: secWrong,
+            marks: secMarks
+          });
         }
       });
 
-      const totalScore = parseFloat((correct * 1.0 - wrong * 0.25).toFixed(2));
+      const totalAttempted = totalCorrect + totalWrong;
+      const totalScore = parseFloat((totalCorrect * 1.0 - totalWrong * 0.25).toFixed(2));
 
       return {
         rollNumber: rollNumber || "PHHC" + Math.floor(100000 + Math.random() * 900000),
         candidateName: candidateName || "Candidate",
         examDate: examDate || "N/A",
         shift: shift || "Shift 1",
-        correct,
-        wrong,
-        unattempted,
-        totalScore
+        totalAttempted,
+        totalUnattempted,
+        totalCorrect,
+        totalWrong,
+        totalScore,
+        subjectDetails
       };
     }
 
@@ -421,7 +473,7 @@
         // 1. Fetch
         const rawHtml = await fetchResponseSheet(inputUrl);
 
-        status.innerText = "📊 सही और गलत उत्तर गिने जा रहे हैं...";
+        status.innerText = "📊 विषय-वार अंक और रैंक कैलकुलेट हो रही है...";
 
         // 2. Parse
         const parsed = parseTCSHtml(rawHtml);
@@ -434,11 +486,11 @@
           p_pin: pin,
           p_exam_date: parsed.examDate,
           p_shift: parsed.shift,
-          p_correct: parsed.correct,
-          p_wrong: parsed.wrong,
-          p_unattempted: parsed.unattempted,
+          p_correct: parsed.totalCorrect,
+          p_wrong: parsed.totalWrong,
+          p_unattempted: parsed.totalUnattempted,
           p_total: parsed.totalScore,
-          p_sections: {}
+          p_sections: { subjects: parsed.subjectDetails }
         });
 
         if (upsertErr) throw upsertErr;
@@ -450,19 +502,41 @@
 
         if (rankErr) throw rankErr;
 
-        // Render UI
+        // Render Candidate Metadata
         document.getElementById("resName").innerText = parsed.candidateName;
         document.getElementById("resRoll").innerText = parsed.rollNumber;
         document.getElementById("resShift").innerText = parsed.shift;
 
-        document.getElementById("totalMarks").innerText = parsed.totalScore;
-        document.getElementById("correctCount").innerText = parsed.correct;
-        document.getElementById("wrongCount").innerText = parsed.wrong;
-        document.getElementById("unattemptedCount").innerText = parsed.unattempted;
-
+        // Render Ranks
         document.getElementById("overallRank").innerText = `${rankStats.overall_rank} / ${rankStats.total_candidates}`;
         document.getElementById("categoryRank").innerText = `${rankStats.category_rank} / ${rankStats.total_category_candidates}`;
         document.getElementById("shiftRank").innerText = `${rankStats.shift_rank} / ${rankStats.total_shift_candidates}`;
+
+        // Render Subject Table (RankMitra Style)
+        const tbody = document.getElementById("subjectTableBody");
+        tbody.innerHTML = parsed.subjectDetails.map((sub) => `
+          <tr class="border-b border-slate-100 hover:bg-slate-50 transition">
+            <td class="py-3.5 px-3 sm:px-4 text-left font-semibold text-slate-800">${sub.name}</td>
+            <td class="py-3.5 px-3 sm:px-4 font-medium">${sub.attempt}</td>
+            <td class="py-3.5 px-3 sm:px-4 text-slate-500">${sub.na}</td>
+            <td class="py-3.5 px-3 sm:px-4 font-bold text-emerald-600">${sub.r}</td>
+            <td class="py-3.5 px-3 sm:px-4 font-bold text-red-600">${sub.w}</td>
+            <td class="py-3.5 px-3 sm:px-4 font-black text-slate-900">${sub.marks}</td>
+          </tr>
+        `).join("");
+
+        // Render Overall Dark Row
+        const tfoot = document.getElementById("overallTableFoot");
+        tfoot.innerHTML = `
+          <tr class="bg-slate-800 text-white font-bold text-sm sm:text-base">
+            <td class="py-4 px-3 sm:px-4 text-left font-black tracking-wide">Overall</td>
+            <td class="py-4 px-3 sm:px-4">${parsed.totalAttempted}</td>
+            <td class="py-4 px-3 sm:px-4 text-slate-300">${parsed.totalUnattempted}</td>
+            <td class="py-4 px-3 sm:px-4 text-emerald-400">${parsed.totalCorrect}</td>
+            <td class="py-4 px-3 sm:px-4 text-red-400">${parsed.totalWrong}</td>
+            <td class="py-4 px-3 sm:px-4 font-black text-amber-400">${parsed.totalScore}</td>
+          </tr>
+        `;
 
         document.getElementById("resultCard").classList.remove("hidden");
         status.classList.add("hidden");
