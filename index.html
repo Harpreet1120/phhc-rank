@@ -19,13 +19,51 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body class="bg-slate-50 text-slate-900 min-h-screen py-10 px-4">
+<body class="bg-slate-50 text-slate-900 min-h-screen py-8 px-4">
 
   <div class="max-w-3xl mx-auto space-y-6">
+
+    <!-- Header -->
     <div class="text-center space-y-1">
       <h1 class="text-3xl font-extrabold text-indigo-900">Punjab & Haryana High Court</h1>
       <p class="text-slate-600 text-sm">Real-Time Response Sheet Rank & Score Calculator</p>
     </div>
+
+    <!-- ========================================================================= -->
+    <!-- 📢 ADVERTISEMENT BANNER 1 (रैंक चेक करने से पहले - हमेशा सबसे ऊपर दिखेगा) -->
+    <!-- ========================================================================= -->
+    <div class="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 rounded-2xl p-5 sm:p-6 text-white shadow-xl border-2 border-amber-400/40 relative overflow-hidden">
+      <div class="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
+        <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden bg-white/10 border-2 border-amber-400 flex-shrink-0 flex items-center justify-center text-3xl font-black text-amber-400 shadow-md">
+          🖊️
+        </div>
+        <div class="space-y-1 flex-1">
+          <div class="inline-block bg-amber-400 text-slate-950 text-xs font-black uppercase tracking-wider py-0.5 px-3 rounded-full shadow-sm">
+            ⭐ Official Preparation Partner
+          </div>
+          <h2 class="text-xl sm:text-2xl font-black tracking-tight text-white">
+            Silver Pen Classes
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-200 leading-relaxed">
+            <strong>Punjab & Haryana High Court, HSSC (CET, Police, Clerk)</strong> व <strong>SSC</strong> की पक्की तैयारी! आसान भाषा में कॉन्सेप्ट्स और बेहतरीन टेस्ट सीरीज़ के साथ सफलता तय करें।
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-4 mt-4 border-t border-slate-700/60">
+        <a href="https://www.youtube.com/@SilverPenClasses" target="_blank" 
+           class="flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white font-bold py-2.5 px-4 rounded-xl shadow transition text-sm">
+          <span>▶️</span>
+          <span>YouTube चैनल सब्सक्राइब करें</span>
+        </a>
+        <a href="https://play.google.com/store/apps/details?id=com.silverpenclasses.app&pcampaignid=web_share" target="_blank" 
+           class="flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 px-4 rounded-xl shadow transition text-sm">
+          <span>📲</span>
+          <span>Download App (Play Store)</span>
+        </a>
+      </div>
+    </div>
+    <!-- ========================================================================= -->
 
     <!-- Input Form -->
     <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200">
@@ -69,8 +107,8 @@
       <div id="statusMsg" class="mt-3 text-sm text-center hidden"></div>
     </div>
 
-    <!-- Results Section -->
-    <div id="resultCard" class="hidden space-y-4">
+    <!-- Results Section (Visible after submit) -->
+    <div id="resultCard" class="hidden space-y-5">
       <div class="bg-indigo-50 border border-indigo-100 p-4 rounded-xl flex flex-wrap justify-between text-sm text-indigo-950 font-medium">
         <div><strong>Name:</strong> <span id="resName">-</span></div>
         <div><strong>Roll No:</strong> <span id="resRoll">-</span></div>
@@ -113,46 +151,78 @@
         </div>
       </div>
 
-      <!-- Silver Pen Classes Promotion Card (YouTube + Play Store App) -->
-      <div class="bg-gradient-to-br from-indigo-900 via-indigo-800 to-slate-900 rounded-2xl p-6 text-white shadow-lg border border-indigo-700/50 text-center space-y-4">
-        <div class="inline-block bg-amber-400 text-slate-900 text-xs font-black uppercase tracking-wider py-1 px-3.5 rounded-full shadow-sm">
-          🎯 सफलता की सीढ़ी — Silver Pen Classes
-        </div>
-        <h3 class="text-xl sm:text-2xl font-extrabold tracking-tight">
-          Punjab & Haryana High Court, HSSC और SSC की पक्की तैयारी!
+      <!-- ========================================================================= -->
+      <!-- 📢 ADVERTISEMENT BANNER 2 (रैंक चेक करने के बाद - रिज़ल्ट के ठीक नीचे) -->
+      <!-- ========================================================================= -->
+      <div class="bg-gradient-to-r from-orange-600 via-amber-600 to-red-600 rounded-2xl p-6 text-white shadow-xl text-center space-y-3">
+        <span class="inline-block bg-white/20 text-xs font-black uppercase tracking-wider py-1 px-3.5 rounded-full">
+          🚀 अगले चरण की तैयारी — Silver Pen Classes
+        </span>
+        <h3 class="text-xl sm:text-2xl font-black">
+          स्कोर चाहे जो भी हो, अपनी तैयारी को दें नया मुकाम!
         </h3>
-        <p class="text-sm text-indigo-100 max-w-xl mx-auto leading-relaxed">
-          सटीक रणनीति, आसान भाषा में कॉन्सेप्ट क्लैरिटी और बेहतरीन स्टडी मैटेरियल के साथ हर परीक्षा में आगे रहें। आज ही यूट्यूब चैनल से जुड़ें और आधिकारिक ऐप डाउनलोड करें!
+        <p class="text-xs sm:text-sm text-amber-100 max-w-lg mx-auto leading-relaxed">
+          हाई कोर्ट और हरियाणा के सभी आगामी एग्जाम्स की पक्की तैयारी के लिए आज ही हमारे साथ जुड़ें।
         </p>
-
         <div class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
-          <!-- YouTube Button -->
           <a href="https://www.youtube.com/@SilverPenClasses" target="_blank" 
-             class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white font-bold py-2.5 px-5 rounded-xl shadow transition text-sm">
-            <span>▶️</span>
-            <span>YouTube चैनल सब्सक्राइब करें</span>
+             class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white text-orange-700 hover:bg-orange-50 font-bold py-2.5 px-5 rounded-xl shadow transition text-sm">
+            ▶️ Subscribe YouTube Channel
           </a>
-
-          <!-- Play Store App Button -->
           <a href="https://play.google.com/store/apps/details?id=com.silverpenclasses.app&pcampaignid=web_share" target="_blank" 
-             class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white hover:bg-slate-100 text-slate-900 font-bold py-2.5 px-5 rounded-xl shadow transition text-sm">
-            <span>📲</span>
-            <span>Download Android App (Play Store)</span>
+             class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-slate-900 text-white hover:bg-slate-800 font-bold py-2.5 px-5 rounded-xl shadow transition text-sm">
+            📲 Download Android App
           </a>
         </div>
       </div>
+      <!-- ========================================================================= -->
     </div>
 
+    <!-- ========================================================================= -->
+    <!-- 👤 ABOUT THE CREATOR & TOOL SECTION (Preet Gill) -->
+    <!-- ========================================================================= -->
+    <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+      <div class="flex flex-col sm:flex-row items-center gap-5 text-center sm:text-left">
+        <!-- Creator Photo -->
+        <div class="relative w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden border-2 border-indigo-600 shadow-md flex-shrink-0 bg-slate-100">
+          <img src="creator.jpg" alt="Preet Gill" 
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" 
+               class="w-full h-full object-cover">
+          <div style="display:none;" class="w-full h-full items-center justify-center font-bold text-2xl text-indigo-700 bg-indigo-50">
+            PG
+          </div>
+        </div>
+
+        <!-- Creator Details -->
+        <div class="space-y-1.5 flex-1">
+          <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2">
+            <h3 class="text-xl font-black text-slate-900">Preet Gill</h3>
+            <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-0.5 rounded-full">
+              Developer & Creator
+            </span>
+          </div>
+          <p class="text-xs text-indigo-600 font-semibold">
+            PHHC Rank Predictor & Answer Key Tool
+          </p>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed pt-1">
+            यह टूल पंजाब एवं हरियाणा हाई कोर्ट के सभी मेहनती उम्मीदवारों के लिए पूरी तरह मुफ़्त तैयार किया गया है, ताकि हर छात्र बिना किसी परेशानी के अपनी सटीक नेगेटिव मार्किंग, सही शिफ्ट एवरेज और रियल-टाइम रैंक पारदर्शी तरीके से जान सके।
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- ========================================================================= -->
+
     <!-- SEO Footer Section -->
-    <div class="mt-12 pt-6 border-t border-slate-200 text-center text-xs text-slate-500 space-y-2">
+    <div class="pt-4 border-t border-slate-200 text-center text-xs text-slate-500 space-y-1">
       <p class="font-semibold text-slate-600">
-        Covered Exams: Punjab and Haryana High Court (PHHC) Clerk, Haryana Subordinate Court Clerk, Stenographer, Driver, Peon, and SSSC Recruitment Exams.
+        Supported Exams: Punjab and Haryana High Court (PHHC) Clerk, Haryana Subordinate Court Clerk, Stenographer, Driver, Peon, and SSSC Recruitment Exams.
       </p>
       <p>
-        Popular Searches: Haryana highcourt rank predictor, Haryana clerk answerkey counter, Punjab and Haryana High Court marks calculation, SSSC Clerk Category Rank (General, EWS, DSC, OSC, BC-A, BC-B, ESM, PwD).
+        Popular Searches: Haryana highcourt rank predictor, Haryana clerk answerkey counter, Punjab and Haryana High Court marks calculation, SSSC Clerk Category Rank.
       </p>
-      <p class="text-slate-400">© 2026 PHHC Rank Predictor & Silver Pen Classes. All rights reserved.</p>
+      <p class="text-slate-400">© 2026 PHHC Rank Predictor | Designed by Preet Gill. All rights reserved.</p>
     </div>
+
   </div>
 
   <script>
