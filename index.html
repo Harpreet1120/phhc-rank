@@ -19,213 +19,243 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body class="bg-slate-50 text-slate-900 min-h-screen py-8 px-4">
+<body class="bg-slate-50 text-slate-900 min-h-screen relative font-sans">
 
-  <div class="max-w-3xl mx-auto space-y-6">
+  <!-- ========================================================================= -->
+  <!-- 🛑 FLOATING POPUP ADVERTISEMENT (पेज खुलते ही आएगा, बैकग्राउंड ब्लर रहेगा) -->
+  <!-- ========================================================================= -->
+  <div id="adModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md transition-opacity duration-300">
+    <div class="relative w-full max-w-lg bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 border-2 border-amber-400 rounded-3xl p-6 sm:p-8 text-white shadow-2xl text-center space-y-4 animate-in fade-in zoom-in duration-200">
+      
+      <!-- ❌ BADA SA KANTA KA NISAN (Close Button) -->
+      <button onclick="closeAdModal()" 
+              class="absolute -top-3 -right-3 sm:-top-4 sm:-right-4 w-11 h-11 bg-red-600 hover:bg-red-700 active:scale-95 text-white font-black text-2xl rounded-full flex items-center justify-center shadow-2xl border-2 border-white transition transform hover:rotate-90 cursor-pointer" 
+              title="बंद करें और कैलकुलेटर खोलें">
+        ✕
+      </button>
 
-    <!-- Header -->
-    <div class="text-center space-y-1">
-      <h1 class="text-3xl font-extrabold text-indigo-900">Punjab & Haryana High Court</h1>
-      <p class="text-slate-600 text-sm">Real-Time Response Sheet Rank & Score Calculator</p>
-    </div>
-
-    <!-- ========================================================================= -->
-    <!-- 📢 ADVERTISEMENT BANNER 1 (रैंक चेक करने से पहले - हमेशा सबसे ऊपर दिखेगा) -->
-    <!-- ========================================================================= -->
-    <div class="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 rounded-2xl p-5 sm:p-6 text-white shadow-xl border-2 border-amber-400/40 relative overflow-hidden">
-      <div class="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
-        <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden bg-white/10 border-2 border-amber-400 flex-shrink-0 flex items-center justify-center text-3xl font-black text-amber-400 shadow-md">
-          🖊️
-        </div>
-        <div class="space-y-1 flex-1">
-          <div class="inline-block bg-amber-400 text-slate-950 text-xs font-black uppercase tracking-wider py-0.5 px-3 rounded-full shadow-sm">
-            ⭐ Official Preparation Partner
-          </div>
-          <h2 class="text-xl sm:text-2xl font-black tracking-tight text-white">
-            Silver Pen Classes
-          </h2>
-          <p class="text-xs sm:text-sm text-slate-200 leading-relaxed">
-            <strong>Punjab & Haryana High Court, HSSC (CET, Police, Clerk)</strong> व <strong>SSC</strong> की पक्की तैयारी! आसान भाषा में कॉन्सेप्ट्स और बेहतरीन टेस्ट सीरीज़ के साथ सफलता तय करें।
-          </p>
-        </div>
+      <!-- Ad Badge & Header -->
+      <div class="inline-block bg-amber-400 text-slate-950 text-xs font-black uppercase tracking-wider py-1 px-4 rounded-full shadow-sm">
+        ⭐ Official Preparation Partner
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-4 mt-4 border-t border-slate-700/60">
+      <div class="space-y-2">
+        <h2 class="text-2xl sm:text-3xl font-black tracking-tight text-white">
+          Silver Pen Classes
+        </h2>
+        <p class="text-xs sm:text-sm text-amber-200 font-medium">
+          सफलता की सीढ़ी — एक सही मार्गदर्शन के साथ
+        </p>
+      </div>
+
+      <p class="text-xs sm:text-sm text-slate-200 leading-relaxed px-2">
+        <strong>Punjab & Haryana High Court, HSSC (CET, Police, Clerk)</strong> और <strong>SSC</strong> की पक्की तैयारी! आसान भाषा में कॉन्सेप्ट्स और टेस्ट सीरीज़ के लिए अभी जुड़ें।
+      </p>
+
+      <!-- Action Buttons (YouTube & App) -->
+      <div class="flex flex-col gap-3 pt-2">
         <a href="https://www.youtube.com/@SilverPenClasses" target="_blank" 
-           class="flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white font-bold py-2.5 px-4 rounded-xl shadow transition text-sm">
-          <span>▶️</span>
+           class="flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-5 rounded-2xl shadow-lg transition transform hover:scale-[1.02] text-sm">
+          <span class="text-lg">▶️</span>
           <span>YouTube चैनल सब्सक्राइब करें</span>
         </a>
+
         <a href="https://play.google.com/store/apps/details?id=com.silverpenclasses.app&pcampaignid=web_share" target="_blank" 
-           class="flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 px-4 rounded-xl shadow transition text-sm">
-          <span>📲</span>
+           class="flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-5 rounded-2xl shadow-lg transition transform hover:scale-[1.02] text-sm">
+          <span class="text-lg">📲</span>
           <span>Download App (Play Store)</span>
         </a>
       </div>
-    </div>
-    <!-- ========================================================================= -->
 
-    <!-- Input Form -->
-    <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200">
-      <form id="rankForm" class="space-y-4">
-        <div>
-          <label class="block text-sm font-semibold text-slate-700 mb-1">
-            Response Sheet का HTML Source Code
-          </label>
-          <textarea id="htmlInput" rows="6" required 
-            placeholder="आंसर की वाले पेज पर Ctrl+U दबाएँ, पूरा कोड कॉपी करके यहाँ पेस्ट करें..." 
-            class="w-full p-3 border border-slate-300 rounded-xl text-xs font-mono focus:ring-2 focus:ring-indigo-500 focus:outline-none"></textarea>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-sm font-semibold text-slate-700 mb-1">Category</label>
-            <select id="categoryInput" class="w-full p-2.5 border border-slate-300 rounded-xl text-sm bg-white focus:ring-2 focus:ring-indigo-500">
-              <option value="General">General / UR</option>
-              <option value="EWS">EWS</option>
-              <option value="DSC">DSC (Deprived SC)</option>
-              <option value="OSC">OSC (Other SC)</option>
-              <option value="BC-A">BC-A (Backward Class Block-A)</option>
-              <option value="BC-B">BC-B (Backward Class Block-B)</option>
-              <option value="ESM">ESM (Ex-Servicemen)</option>
-              <option value="PwD">PwD (PH / दिव्यांग)</option>
-            </select>
-          </div>
-
-          <div>
-            <label class="block text-sm font-semibold text-slate-700 mb-1">4-Digit Security PIN</label>
-            <input type="password" id="pinInput" maxlength="4" required placeholder="उदा. 1234" 
-              class="w-full p-2.5 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-indigo-500">
-          </div>
-        </div>
-
-        <button type="submit" id="submitBtn" 
-          class="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-xl transition flex items-center justify-center gap-2">
-          Score और Rank चेक करें
+      <!-- Skip Link -->
+      <div class="pt-2">
+        <button onclick="closeAdModal()" class="text-xs text-slate-400 hover:text-white underline transition cursor-pointer">
+          Skip to High Court Rank Calculator →
         </button>
-      </form>
-      <div id="statusMsg" class="mt-3 text-sm text-center hidden"></div>
+      </div>
     </div>
+  </div>
+  <!-- ========================================================================= -->
 
-    <!-- Results Section (Visible after submit) -->
-    <div id="resultCard" class="hidden space-y-5">
-      <div class="bg-indigo-50 border border-indigo-100 p-4 rounded-xl flex flex-wrap justify-between text-sm text-indigo-950 font-medium">
-        <div><strong>Name:</strong> <span id="resName">-</span></div>
-        <div><strong>Roll No:</strong> <span id="resRoll">-</span></div>
-        <div><strong>Shift:</strong> <span id="resShift">-</span></div>
+
+  <!-- ========================================================================= -->
+  <!-- 📱 MAIN WEBSITE CONTENT (शुरुआत में ब्लर रहेगा, ऐड कटने के बाद साफ़ होगा) -->
+  <!-- ========================================================================= -->
+  <div id="mainContent" class="filter blur-sm pointer-events-none select-none transition-all duration-300 py-8 px-4">
+    <div class="max-w-3xl mx-auto space-y-6">
+
+      <!-- Header -->
+      <div class="text-center space-y-1">
+        <h1 class="text-3xl font-extrabold text-indigo-900">Punjab & Haryana High Court</h1>
+        <p class="text-slate-600 text-sm">Real-Time Response Sheet Rank & Score Calculator</p>
       </div>
 
-      <!-- Rank Badges -->
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-white">
-        <div class="bg-indigo-600 p-5 rounded-2xl shadow-sm">
-          <div class="text-xs uppercase font-medium opacity-80">Overall Rank</div>
-          <div class="text-3xl font-extrabold mt-1" id="overallRank">-</div>
+      <!-- Input Form -->
+      <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200">
+        <form id="rankForm" class="space-y-4">
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-1">
+              Response Sheet का HTML Source Code
+            </label>
+            <textarea id="htmlInput" rows="6" required 
+              placeholder="आंसर की वाले पेज पर Ctrl+U दबाएँ, पूरा कोड कॉपी करके यहाँ पेस्ट करें..." 
+              class="w-full p-3 border border-slate-300 rounded-xl text-xs font-mono focus:ring-2 focus:ring-indigo-500 focus:outline-none"></textarea>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-1">Category</label>
+              <select id="categoryInput" class="w-full p-2.5 border border-slate-300 rounded-xl text-sm bg-white focus:ring-2 focus:ring-indigo-500">
+                <option value="General">General / UR</option>
+                <option value="EWS">EWS</option>
+                <option value="DSC">DSC (Deprived SC)</option>
+                <option value="OSC">OSC (Other SC)</option>
+                <option value="BC-A">BC-A (Backward Class Block-A)</option>
+                <option value="BC-B">BC-B (Backward Class Block-B)</option>
+                <option value="ESM">ESM (Ex-Servicemen)</option>
+                <option value="PwD">PwD (PH / दिव्यांग)</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-1">4-Digit Security PIN</label>
+              <input type="password" id="pinInput" maxlength="4" required placeholder="उदा. 1234" 
+                class="w-full p-2.5 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-indigo-500">
+            </div>
+          </div>
+
+          <button type="submit" id="submitBtn" 
+            class="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-xl transition flex items-center justify-center gap-2 cursor-pointer">
+            Score और Rank चेक करें
+          </button>
+        </form>
+        <div id="statusMsg" class="mt-3 text-sm text-center hidden"></div>
+      </div>
+
+      <!-- Results Section (Visible after submit) -->
+      <div id="resultCard" class="hidden space-y-5">
+        <div class="bg-indigo-50 border border-indigo-100 p-4 rounded-xl flex flex-wrap justify-between text-sm text-indigo-950 font-medium">
+          <div><strong>Name:</strong> <span id="resName">-</span></div>
+          <div><strong>Roll No:</strong> <span id="resRoll">-</span></div>
+          <div><strong>Shift:</strong> <span id="resShift">-</span></div>
         </div>
-        <div class="bg-emerald-600 p-5 rounded-2xl shadow-sm">
-          <div class="text-xs uppercase font-medium opacity-80">Category Rank</div>
-          <div class="text-3xl font-extrabold mt-1" id="categoryRank">-</div>
+
+        <!-- Rank Badges -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-white">
+          <div class="bg-indigo-600 p-5 rounded-2xl shadow-sm">
+            <div class="text-xs uppercase font-medium opacity-80">Overall Rank</div>
+            <div class="text-3xl font-extrabold mt-1" id="overallRank">-</div>
+          </div>
+          <div class="bg-emerald-600 p-5 rounded-2xl shadow-sm">
+            <div class="text-xs uppercase font-medium opacity-80">Category Rank</div>
+            <div class="text-3xl font-extrabold mt-1" id="categoryRank">-</div>
+          </div>
+          <div class="bg-violet-600 p-5 rounded-2xl shadow-sm">
+            <div class="text-xs uppercase font-medium opacity-80">Shift Rank</div>
+            <div class="text-3xl font-extrabold mt-1" id="shiftRank">-</div>
+          </div>
         </div>
-        <div class="bg-violet-600 p-5 rounded-2xl shadow-sm">
-          <div class="text-xs uppercase font-medium opacity-80">Shift Rank</div>
-          <div class="text-3xl font-extrabold mt-1" id="shiftRank">-</div>
+
+        <!-- Score Summary -->
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+          <div>
+            <div class="text-xs text-slate-500">Total Marks</div>
+            <div class="text-2xl font-bold text-indigo-600" id="totalMarks">-</div>
+          </div>
+          <div>
+            <div class="text-xs text-slate-500">Correct (+1)</div>
+            <div class="text-2xl font-bold text-emerald-600" id="correctCount">-</div>
+          </div>
+          <div>
+            <div class="text-xs text-slate-500">Wrong (-0.25)</div>
+            <div class="text-2xl font-bold text-red-600" id="wrongCount">-</div>
+          </div>
+          <div>
+            <div class="text-xs text-slate-500">Unattempted</div>
+            <div class="text-2xl font-bold text-slate-600" id="unattemptedCount">-</div>
+          </div>
+        </div>
+
+        <!-- In-Result Promotion Banner -->
+        <div class="bg-gradient-to-r from-orange-600 via-amber-600 to-red-600 rounded-2xl p-6 text-white shadow-xl text-center space-y-3">
+          <span class="inline-block bg-white/20 text-xs font-black uppercase tracking-wider py-1 px-3.5 rounded-full">
+            🚀 अगले चरण की तैयारी — Silver Pen Classes
+          </span>
+          <h3 class="text-xl sm:text-2xl font-black">
+            स्कोर चाहे जो भी हो, अपनी तैयारी को दें नया मुकाम!
+          </h3>
+          <p class="text-xs sm:text-sm text-amber-100 max-w-lg mx-auto leading-relaxed">
+            हाई कोर्ट और हरियाणा के सभी आगामी एग्जाम्स की पक्की तैयारी के लिए आज ही हमारे साथ जुड़ें।
+          </p>
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+            <a href="https://www.youtube.com/@SilverPenClasses" target="_blank" 
+               class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white text-orange-700 hover:bg-orange-50 font-bold py-2.5 px-5 rounded-xl shadow transition text-sm">
+              ▶️ Subscribe YouTube Channel
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=com.silverpenclasses.app&pcampaignid=web_share" target="_blank" 
+               class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-slate-900 text-white hover:bg-slate-800 font-bold py-2.5 px-5 rounded-xl shadow transition text-sm">
+              📲 Download Android App
+            </a>
+          </div>
         </div>
       </div>
 
-      <!-- Score Summary -->
-      <div class="bg-white p-5 rounded-2xl border border-slate-200 grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
-        <div>
-          <div class="text-xs text-slate-500">Total Marks</div>
-          <div class="text-2xl font-bold text-indigo-600" id="totalMarks">-</div>
-        </div>
-        <div>
-          <div class="text-xs text-slate-500">Correct (+1)</div>
-          <div class="text-2xl font-bold text-emerald-600" id="correctCount">-</div>
-        </div>
-        <div>
-          <div class="text-xs text-slate-500">Wrong (-0.25)</div>
-          <div class="text-2xl font-bold text-red-600" id="wrongCount">-</div>
-        </div>
-        <div>
-          <div class="text-xs text-slate-500">Unattempted</div>
-          <div class="text-2xl font-bold text-slate-600" id="unattemptedCount">-</div>
+      <!-- About Developer & Creator Card (Preet Gill) -->
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+        <div class="flex flex-col sm:flex-row items-center gap-5 text-center sm:text-left">
+          <!-- Photo with auto-fallback for creator.jpg or creator.jpg.jpg -->
+          <div class="relative w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden border-2 border-indigo-600 shadow-md flex-shrink-0 bg-slate-100">
+            <img src="creator.jpg" alt="Preet Gill" 
+                 onerror="this.src='creator.jpg.jpg'; this.onerror=function(){this.style.display='none'; document.getElementById('avatarFallback').style.display='flex';};" 
+                 class="w-full h-full object-cover">
+            <div id="avatarFallback" style="display:none;" class="w-full h-full items-center justify-center font-bold text-2xl text-indigo-700 bg-indigo-50">
+              PG
+            </div>
+          </div>
+
+          <div class="space-y-1.5 flex-1">
+            <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2">
+              <h3 class="text-xl font-black text-slate-900">Preet Gill</h3>
+              <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-0.5 rounded-full">
+                Developer & Creator
+              </span>
+            </div>
+            <p class="text-xs text-indigo-600 font-semibold">
+              PHHC Rank Predictor & Answer Key Tool
+            </p>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed pt-1">
+              यह टूल पंजाब एवं हरियाणा हाई कोर्ट के सभी मेहनती उम्मीदवारों के लिए पूरी तरह मुफ़्त तैयार किया गया है, ताकि हर छात्र बिना किसी परेशानी के अपनी सटीक नेगेटिव मार्किंग, सही शिफ्ट एवरेज और रियल-टाइम रैंक पारदर्शी तरीके से जान सके।
+            </p>
+          </div>
         </div>
       </div>
 
-      <!-- ========================================================================= -->
-      <!-- 📢 ADVERTISEMENT BANNER 2 (रैंक चेक करने के बाद - रिज़ल्ट के ठीक नीचे) -->
-      <!-- ========================================================================= -->
-      <div class="bg-gradient-to-r from-orange-600 via-amber-600 to-red-600 rounded-2xl p-6 text-white shadow-xl text-center space-y-3">
-        <span class="inline-block bg-white/20 text-xs font-black uppercase tracking-wider py-1 px-3.5 rounded-full">
-          🚀 अगले चरण की तैयारी — Silver Pen Classes
-        </span>
-        <h3 class="text-xl sm:text-2xl font-black">
-          स्कोर चाहे जो भी हो, अपनी तैयारी को दें नया मुकाम!
-        </h3>
-        <p class="text-xs sm:text-sm text-amber-100 max-w-lg mx-auto leading-relaxed">
-          हाई कोर्ट और हरियाणा के सभी आगामी एग्जाम्स की पक्की तैयारी के लिए आज ही हमारे साथ जुड़ें।
+      <!-- SEO Footer -->
+      <div class="pt-4 border-t border-slate-200 text-center text-xs text-slate-500 space-y-1">
+        <p class="font-semibold text-slate-600">
+          Supported Exams: Punjab and Haryana High Court (PHHC) Clerk, Haryana Subordinate Court Clerk, Stenographer, Driver, Peon, and SSSC Recruitment Exams.
         </p>
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
-          <a href="https://www.youtube.com/@SilverPenClasses" target="_blank" 
-             class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white text-orange-700 hover:bg-orange-50 font-bold py-2.5 px-5 rounded-xl shadow transition text-sm">
-            ▶️ Subscribe YouTube Channel
-          </a>
-          <a href="https://play.google.com/store/apps/details?id=com.silverpenclasses.app&pcampaignid=web_share" target="_blank" 
-             class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-slate-900 text-white hover:bg-slate-800 font-bold py-2.5 px-5 rounded-xl shadow transition text-sm">
-            📲 Download Android App
-          </a>
-        </div>
+        <p>
+          Popular Searches: Haryana highcourt rank predictor, Haryana clerk answerkey counter, Punjab and Haryana High Court marks calculation, SSSC Clerk Category Rank.
+        </p>
+        <p class="text-slate-400">© 2026 PHHC Rank Predictor | Designed by Preet Gill. All rights reserved.</p>
       </div>
-      <!-- ========================================================================= -->
+
     </div>
-
-    <!-- ========================================================================= -->
-    <!-- 👤 ABOUT THE CREATOR & TOOL SECTION (Preet Gill) -->
-    <!-- ========================================================================= -->
-    <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
-      <div class="flex flex-col sm:flex-row items-center gap-5 text-center sm:text-left">
-        <!-- Creator Photo -->
-        <div class="relative w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden border-2 border-indigo-600 shadow-md flex-shrink-0 bg-slate-100">
-          <img src="creator.jpg" alt="Preet Gill" 
-               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" 
-               class="w-full h-full object-cover">
-          <div style="display:none;" class="w-full h-full items-center justify-center font-bold text-2xl text-indigo-700 bg-indigo-50">
-            PG
-          </div>
-        </div>
-
-        <!-- Creator Details -->
-        <div class="space-y-1.5 flex-1">
-          <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2">
-            <h3 class="text-xl font-black text-slate-900">Preet Gill</h3>
-            <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-0.5 rounded-full">
-              Developer & Creator
-            </span>
-          </div>
-          <p class="text-xs text-indigo-600 font-semibold">
-            PHHC Rank Predictor & Answer Key Tool
-          </p>
-          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed pt-1">
-            यह टूल पंजाब एवं हरियाणा हाई कोर्ट के सभी मेहनती उम्मीदवारों के लिए पूरी तरह मुफ़्त तैयार किया गया है, ताकि हर छात्र बिना किसी परेशानी के अपनी सटीक नेगेटिव मार्किंग, सही शिफ्ट एवरेज और रियल-टाइम रैंक पारदर्शी तरीके से जान सके।
-          </p>
-        </div>
-      </div>
-    </div>
-    <!-- ========================================================================= -->
-
-    <!-- SEO Footer Section -->
-    <div class="pt-4 border-t border-slate-200 text-center text-xs text-slate-500 space-y-1">
-      <p class="font-semibold text-slate-600">
-        Supported Exams: Punjab and Haryana High Court (PHHC) Clerk, Haryana Subordinate Court Clerk, Stenographer, Driver, Peon, and SSSC Recruitment Exams.
-      </p>
-      <p>
-        Popular Searches: Haryana highcourt rank predictor, Haryana clerk answerkey counter, Punjab and Haryana High Court marks calculation, SSSC Clerk Category Rank.
-      </p>
-      <p class="text-slate-400">© 2026 PHHC Rank Predictor | Designed by Preet Gill. All rights reserved.</p>
-    </div>
-
   </div>
 
   <script>
+    // Close Modal & Unblur Content
+    function closeAdModal() {
+      const modal = document.getElementById("adModal");
+      const main = document.getElementById("mainContent");
+      modal.style.opacity = "0";
+      setTimeout(() => {
+        modal.style.display = "none";
+        main.classList.remove("blur-sm", "pointer-events-none", "select-none");
+      }, 250);
+    }
+
     const SUPABASE_URL = 'https://avsqfhktifquwxpmizlb.supabase.co';
     const SUPABASE_ANON_KEY = 'sb_publishable_uxzspvVC2JTuu6fOTp75Og_jrs2f2J9';
     const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
