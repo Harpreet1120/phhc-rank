@@ -10,7 +10,6 @@
   <meta name="keywords" content="haryana highcourt rank, haryana clerk answerkey, pujab and haryana high court, haryana high court answer key, punjab and haryana high court, phhc rank predictor, phhc clerk answer key, sssc clerk rank, haryana court clerk answer key, high court clerk answer key 2026, chandigarh high court answer key, rankiq phhc, rankmitra high court, high court marks calculator, haryana court rank check, sssc haryana clerk rank">
   <meta name="robots" content="index, follow">
 
-  <!-- Social Preview (WhatsApp / Telegram) -->
   <meta property="og:title" content="Haryana High Court Rank Predictor | PHHC Clerk Answer Key Calculator">
   <meta property="og:description" content="हरियाणा हाई कोर्ट क्लर्क आंसर की से तुरंत अपने सही-गलत नंबर, कैटेगरी रैंक और ऑल-ओवर रैंक चेक करें।">
   <meta property="og:url" content="https://phhc-rank.vercel.app">
@@ -22,19 +21,17 @@
 <body class="bg-slate-50 text-slate-900 min-h-screen relative font-sans">
 
   <!-- ========================================================================= -->
-  <!-- 🛑 FLOATING POPUP ADVERTISEMENT (पेज खुलते ही आएगा, बैकग्राउंड ब्लर रहेगा) -->
+  <!-- 🛑 FLOATING POPUP ADVERTISEMENT -->
   <!-- ========================================================================= -->
   <div id="adModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md transition-opacity duration-300">
-    <div class="relative w-full max-w-lg bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 border-2 border-amber-400 rounded-3xl p-6 sm:p-8 text-white shadow-2xl text-center space-y-4 animate-in fade-in zoom-in duration-200">
+    <div class="relative w-full max-w-lg bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 border-2 border-amber-400 rounded-3xl p-6 sm:p-8 text-white shadow-2xl text-center space-y-4">
       
-      <!-- ❌ BADA SA KANTA KA NISAN (Close Button) -->
       <button onclick="closeAdModal()" 
               class="absolute -top-3 -right-3 sm:-top-4 sm:-right-4 w-11 h-11 bg-red-600 hover:bg-red-700 active:scale-95 text-white font-black text-2xl rounded-full flex items-center justify-center shadow-2xl border-2 border-white transition transform hover:rotate-90 cursor-pointer" 
               title="बंद करें और कैलकुलेटर खोलें">
         ✕
       </button>
 
-      <!-- Ad Badge & Header -->
       <div class="inline-block bg-amber-400 text-slate-950 text-xs font-black uppercase tracking-wider py-1 px-4 rounded-full shadow-sm">
         ⭐ Official Preparation Partner
       </div>
@@ -52,22 +49,20 @@
         <strong>Punjab & Haryana High Court, HSSC (CET, Police, Clerk)</strong> और <strong>SSC</strong> की पक्की तैयारी! आसान भाषा में कॉन्सेप्ट्स और टेस्ट सीरीज़ के लिए अभी जुड़ें।
       </p>
 
-      <!-- Action Buttons (YouTube & App) -->
       <div class="flex flex-col gap-3 pt-2">
         <a href="https://www.youtube.com/@SilverPenClasses" target="_blank" 
-           class="flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-5 rounded-2xl shadow-lg transition transform hover:scale-[1.02] text-sm">
+           class="flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-5 rounded-2xl shadow-lg transition text-sm">
           <span class="text-lg">▶️</span>
           <span>YouTube चैनल सब्सक्राइब करें</span>
         </a>
 
         <a href="https://play.google.com/store/apps/details?id=com.silverpenclasses.app&pcampaignid=web_share" target="_blank" 
-           class="flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-5 rounded-2xl shadow-lg transition transform hover:scale-[1.02] text-sm">
+           class="flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-5 rounded-2xl shadow-lg transition text-sm">
           <span class="text-lg">📲</span>
           <span>Download App (Play Store)</span>
         </a>
       </div>
 
-      <!-- Skip Link -->
       <div class="pt-2">
         <button onclick="closeAdModal()" class="text-xs text-slate-400 hover:text-white underline transition cursor-pointer">
           Skip to High Court Rank Calculator →
@@ -75,16 +70,13 @@
       </div>
     </div>
   </div>
-  <!-- ========================================================================= -->
-
 
   <!-- ========================================================================= -->
-  <!-- 📱 MAIN WEBSITE CONTENT (शुरुआत में ब्लर रहेगा, ऐड कटने के बाद साफ़ होगा) -->
+  <!-- 📱 MAIN WEBSITE CONTENT -->
   <!-- ========================================================================= -->
   <div id="mainContent" class="filter blur-sm pointer-events-none select-none transition-all duration-300 py-8 px-4">
     <div class="max-w-3xl mx-auto space-y-6">
 
-      <!-- Header -->
       <div class="text-center space-y-1">
         <h1 class="text-3xl font-extrabold text-indigo-900">Punjab & Haryana High Court</h1>
         <p class="text-slate-600 text-sm">Real-Time Response Sheet Rank & Score Calculator</p>
@@ -95,11 +87,14 @@
         <form id="rankForm" class="space-y-4">
           <div>
             <label class="block text-sm font-semibold text-slate-700 mb-1">
-              Response Sheet का HTML Source Code
+              Response Sheet का Link (URL) पेस्ट करें
             </label>
-            <textarea id="htmlInput" rows="6" required 
-              placeholder="आंसर की वाले पेज पर Ctrl+U दबाएँ, पूरा कोड कॉपी करके यहाँ पेस्ट करें..." 
-              class="w-full p-3 border border-slate-300 rounded-xl text-xs font-mono focus:ring-2 focus:ring-indigo-500 focus:outline-none"></textarea>
+            <input type="url" id="htmlInput" required 
+              placeholder="यहाँ आंसर की का लिंक पेस्ट करें (https://cdn3.digialm.com/...)" 
+              class="w-full p-3.5 border border-slate-300 rounded-xl text-sm font-mono focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+            <p class="text-xs text-slate-500 mt-1.5">
+              💡 <strong>टिप:</strong> सीधे अपनी आंसर की का पूरा लिंक पेस्ट करें।
+            </p>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -129,10 +124,10 @@
             Score और Rank चेक करें
           </button>
         </form>
-        <div id="statusMsg" class="mt-3 text-sm text-center hidden"></div>
+        <div id="statusMsg" class="mt-3 text-sm text-center font-semibold hidden"></div>
       </div>
 
-      <!-- Results Section (Visible after submit) -->
+      <!-- Results Section -->
       <div id="resultCard" class="hidden space-y-5">
         <div class="bg-indigo-50 border border-indigo-100 p-4 rounded-xl flex flex-wrap justify-between text-sm text-indigo-950 font-medium">
           <div><strong>Name:</strong> <span id="resName">-</span></div>
@@ -140,7 +135,6 @@
           <div><strong>Shift:</strong> <span id="resShift">-</span></div>
         </div>
 
-        <!-- Rank Badges -->
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-white">
           <div class="bg-indigo-600 p-5 rounded-2xl shadow-sm">
             <div class="text-xs uppercase font-medium opacity-80">Overall Rank</div>
@@ -156,7 +150,6 @@
           </div>
         </div>
 
-        <!-- Score Summary -->
         <div class="bg-white p-5 rounded-2xl border border-slate-200 grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
           <div>
             <div class="text-xs text-slate-500">Total Marks</div>
@@ -200,10 +193,9 @@
         </div>
       </div>
 
-      <!-- About Developer & Creator Card (Preet Gill) -->
+      <!-- About Developer Card -->
       <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
         <div class="flex flex-col sm:flex-row items-center gap-5 text-center sm:text-left">
-          <!-- Photo with auto-fallback for creator.jpg or creator.jpg.jpg -->
           <div class="relative w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden border-2 border-indigo-600 shadow-md flex-shrink-0 bg-slate-100">
             <img src="creator.jpg" alt="Preet Gill" 
                  onerror="this.src='creator.jpg.jpg'; this.onerror=function(){this.style.display='none'; document.getElementById('avatarFallback').style.display='flex';};" 
@@ -224,28 +216,20 @@
               PHHC Rank Predictor & Answer Key Tool
             </p>
             <p class="text-xs sm:text-sm text-slate-600 leading-relaxed pt-1">
-              यह टूल पंजाब एवं हरियाणा हाई कोर्ट के सभी मेहनती उम्मीदवारों के लिए पूरी तरह मुफ़्त तैयार किया गया है, ताकि हर छात्र बिना किसी परेशानी के अपनी सटीक नेगेटिव मार्किंग, सही शिफ्ट एवरेज और रियल-टाइम रैंक पारदर्शी तरीके से जान सके।
+              यह टूल पंजाब एवं हरियाणा हाई कोर्ट के सभी उम्मीदवारों के लिए बनाया गया है, ताकि हर छात्र अपनी सटीक रैंक और नेगेटिव मार्किंग पारदर्शिता से देख सके।
             </p>
           </div>
         </div>
       </div>
 
-      <!-- SEO Footer -->
       <div class="pt-4 border-t border-slate-200 text-center text-xs text-slate-500 space-y-1">
-        <p class="font-semibold text-slate-600">
-          Supported Exams: Punjab and Haryana High Court (PHHC) Clerk, Haryana Subordinate Court Clerk, Stenographer, Driver, Peon, and SSSC Recruitment Exams.
-        </p>
-        <p>
-          Popular Searches: Haryana highcourt rank predictor, Haryana clerk answerkey counter, Punjab and Haryana High Court marks calculation, SSSC Clerk Category Rank.
-        </p>
-        <p class="text-slate-400">© 2026 PHHC Rank Predictor | Designed by Preet Gill. All rights reserved.</p>
+        <p>© 2026 PHHC Rank Predictor | Designed by Preet Gill. All rights reserved.</p>
       </div>
 
     </div>
   </div>
 
   <script>
-    // Close Modal & Unblur Content
     function closeAdModal() {
       const modal = document.getElementById("adModal");
       const main = document.getElementById("mainContent");
@@ -260,50 +244,126 @@
     const SUPABASE_ANON_KEY = 'sb_publishable_uxzspvVC2JTuu6fOTp75Og_jrs2f2J9';
     const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    function parseHTML(rawHtml) {
+    // 🚀 Multi-Proxy Server Engine (TCS iON Ko 100% Download Karega)
+    async function fetchResponseSheet(targetUrl) {
+      const url = targetUrl.trim();
+
+      // Attempt 1: Internal Vercel Backend API (agar banayi ho)
+      try {
+        const r1 = await fetch(`/api/fetch?url=${encodeURIComponent(url)}`);
+        if (r1.ok) {
+          const t1 = await r1.text();
+          if (t1 && t1.length > 2000) return t1;
+        }
+      } catch (e) {}
+
+      // Attempt 2: High-Speed Proxy 1 (corsproxy.io direct)
+      try {
+        const r2 = await fetch(`https://corsproxy.io/?${encodeURIComponent(url)}`);
+        if (r2.ok) {
+          const t2 = await r2.text();
+          if (t2 && t2.length > 2000) return t2;
+        }
+      } catch (e) {}
+
+      // Attempt 3: High-Speed Proxy 2 (CodeTabs)
+      try {
+        const r3 = await fetch(`https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`);
+        if (r3.ok) {
+          const t3 = await r3.text();
+          if (t3 && t3.length > 2000) return t3;
+        }
+      } catch (e) {}
+
+      // Attempt 4: AllOrigins
+      try {
+        const r4 = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`);
+        if (r4.ok) {
+          const t4 = await r4.text();
+          if (t4 && t4.length > 2000) return t4;
+        }
+      } catch (e) {}
+
+      throw new Error("लिंक से आंसर की लोड नहीं हो सकी। कृपया सुनिश्चित करें कि लिंक सही है।");
+    }
+
+    // 🎯 Specialized TCS iON Touchstone HTML Parser
+    function parseTCSHtml(htmlString) {
       const parser = new DOMParser();
-      const doc = parser.parseFromString(rawHtml, "text/html");
+      const doc = parser.parseFromString(htmlString, "text/html");
 
       let rollNumber = "";
       let candidateName = "";
       let examDate = "";
       let shift = "";
 
+      // 1. Candidate Details (Participant ID / Roll Number)
       const tds = Array.from(doc.querySelectorAll("td"));
       for (let i = 0; i < tds.length; i++) {
         const txt = tds[i].textContent.trim().toLowerCase();
-        if (txt.includes("roll number") || txt.includes("candidate id")) {
+        if (txt.includes("participant id") || txt.includes("roll number") || txt.includes("candidate id")) {
           rollNumber = tds[i + 1]?.textContent.trim() || "";
-        } else if (txt.includes("candidate name")) {
+        } else if (txt.includes("participant name") || txt.includes("candidate name")) {
           candidateName = tds[i + 1]?.textContent.trim() || "";
-        } else if (txt.includes("test date")) {
+        } else if (txt.includes("test date") || txt.includes("exam date")) {
           examDate = tds[i + 1]?.textContent.trim() || "";
-        } else if (txt.includes("test time")) {
+        } else if (txt.includes("test time") || txt.includes("shift")) {
           shift = tds[i + 1]?.textContent.trim() || "";
         }
       }
 
-      let correct = 0, wrong = 0, unattempted = 0;
-      const questions = doc.querySelectorAll(".menu-tbl");
+      // 2. Identify Questions
+      let panels = Array.from(doc.querySelectorAll(".question-pnl"));
+      if (panels.length === 0) {
+        const menus = doc.querySelectorAll(".menu-tbl");
+        panels = Array.from(menus).map(m => m.closest("div") || m.parentElement);
+      }
 
-      questions.forEach((q) => {
+      if (panels.length === 0) {
+        throw new Error("आंसर की में प्रश्न नहीं मिले। क्या यह सही आंसर की का लिंक है?");
+      }
+
+      let correct = 0, wrong = 0, unattempted = 0;
+
+      panels.forEach((panel) => {
         let chosen = "";
         let correctAns = "";
 
-        q.querySelectorAll("tr").forEach((r) => {
+        // A. Chosen Option from menu-tbl
+        const allRows = panel.querySelectorAll("tr");
+        allRows.forEach((r) => {
           if (r.textContent.includes("Chosen Option")) {
-            chosen = r.querySelector("td:last-child")?.textContent.trim() || "";
+            const valTd = r.querySelector("td:last-child") || r.querySelector("td:nth-child(2)");
+            chosen = valTd ? valTd.textContent.trim() : "";
           }
         });
 
-        const rightAnsElem = q.querySelector(".rightAns");
-        if (rightAnsElem) {
-          correctAns = rightAnsElem.textContent.trim();
+        // B. Correct Option (Right Answer Row with class rightAns or tick image)
+        allRows.forEach((tr) => {
+          if (tr.querySelector(".rightAns") || tr.classList.contains("rightAns") || tr.querySelector("img[src*='tick']")) {
+            const firstTd = tr.querySelector("td:first-child");
+            const match = (firstTd ? firstTd.textContent : tr.textContent).match(/([1-4])/);
+            if (match && !correctAns) {
+              correctAns = match;
+            }
+          }
+        });
+
+        // Secondary check for correctAns
+        if (!correctAns) {
+          const rightElem = panel.querySelector(".rightAns, img[src*='tick']");
+          if (rightElem) {
+            const row = rightElem.closest("tr");
+            const match = row ? row.textContent.match(/([1-4])/) : null;
+            if (match) correctAns = match;
+          }
         }
 
-        if (!chosen || chosen === "--" || chosen.toLowerCase().includes("not")) {
+        const cleanChosen = chosen.replace(/[^1-4]/g, "");
+
+        if (!cleanChosen || chosen.includes("--") || chosen.toLowerCase().includes("not")) {
           unattempted++;
-        } else if (chosen === correctAns || (correctAns && correctAns.includes(chosen))) {
+        } else if (correctAns && cleanChosen === correctAns) {
           correct++;
         } else {
           wrong++;
@@ -316,7 +376,7 @@
         rollNumber: rollNumber || "PHHC" + Math.floor(100000 + Math.random() * 900000),
         candidateName: candidateName || "Candidate",
         examDate: examDate || "N/A",
-        shift: shift || "General Shift",
+        shift: shift || "Shift 1",
         correct,
         wrong,
         unattempted,
@@ -324,6 +384,7 @@
       };
     }
 
+    // Submit Handler
     document.getElementById("rankForm").addEventListener("submit", async (e) => {
       e.preventDefault();
       const status = document.getElementById("statusMsg");
@@ -331,16 +392,23 @@
 
       status.classList.remove("hidden", "text-red-600");
       status.classList.add("text-indigo-600");
-      status.innerText = "स्कोर और रैंक कैलकुलेट हो रही है...";
+      status.innerText = "⏳ आंसर की डाउनलोड हो रही है (कृपया 5 सेकंड रुकें)...";
       btn.disabled = true;
 
       try {
-        const html = document.getElementById("htmlInput").value;
+        const inputUrl = document.getElementById("htmlInput").value;
         const cat = document.getElementById("categoryInput").value;
         const pin = document.getElementById("pinInput").value;
 
-        const parsed = parseHTML(html);
+        // 1. Download HTML
+        const rawHtml = await fetchResponseSheet(inputUrl);
 
+        status.innerText = "📊 नंबर और रैंक कैलकुलेट हो रहे हैं...";
+
+        // 2. Parse questions
+        const parsed = parseTCSHtml(rawHtml);
+
+        // 3. Save to Supabase
         const { error: upsertErr } = await supabaseClient.rpc("upsert_score", {
           p_roll_number: parsed.rollNumber,
           p_name: parsed.candidateName,
@@ -357,12 +425,14 @@
 
         if (upsertErr) throw upsertErr;
 
+        // 4. Fetch Rank Stats
         const { data: rankStats, error: rankErr } = await supabaseClient.rpc("get_candidate_rank_stats", {
           p_roll_number: parsed.rollNumber
         });
 
         if (rankErr) throw rankErr;
 
+        // Show Results
         document.getElementById("resName").innerText = parsed.candidateName;
         document.getElementById("resRoll").innerText = parsed.rollNumber;
         document.getElementById("resShift").innerText = parsed.shift;
@@ -381,7 +451,7 @@
       } catch (err) {
         status.classList.remove("text-indigo-600");
         status.classList.add("text-red-600");
-        status.innerText = err.message || "कैलकुलेशन में कोई समस्या आई।";
+        status.innerText = err.message || "कैलकुलेशन में समस्या आई।";
       } finally {
         btn.disabled = false;
       }
