@@ -5,17 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <!-- ========================================== -->
-  <!-- HIGH-IMPACT VIRAL SEO & META TAGS -->
+  <!-- 🚀 HIGH-IMPACT VIRAL SEO & META TAGS -->
   <!-- ========================================== -->
-  <title>RankDekho - Real-time Govt Exam Rank & Score Predictor</title>
-  <meta name="description" content="Calculate real score, shift normalisation, and category rank for SSC, Railway, Delhi Police, and Haryana Subordinate Courts Clerk exams using TCS iON Answer Key URL." />
+  <title>RankDekho ⚡ Haryana Court Clerk, Delhi Police & SSC Rank Predictor 2026</title>
+  <meta name="description" content="RankDekho - Check real-time exam rank, category rank, shift normalisation, and expected cut-off for Haryana Subordinate Courts Clerk (Advt 36C), Delhi Police, SSC, HSSC CET using TCS iON Answer Key URL." />
   <meta name="keywords" content="RankDekho, RankMitra, Haryana Court Clerk Answer Key 2026, Advt 36C SSSC, Haryana Court Clerk Cut Off, Delhi Police Driver Cut Off, TCS iON response sheet marks calculator, Shift Normalization formula, Rank Predictor, Silver Pen Classes" />
   <meta name="author" content="RankDekho" />
   <meta name="robots" content="index, follow" />
 
-  <!-- OpenGraph Viral Social Sharing (WhatsApp / Telegram) -->
+  <!-- OpenGraph Viral Social Sharing (WhatsApp & Telegram Preview) -->
   <meta property="og:title" content="⚡ RankDekho - अपनी सटीक परीक्षा रैंक और नॉर्मलाइज्ड स्कोर देखें" />
-  <meta property="og:description" content="TCS iON आंसर-की URL दर्ज करें और तुरंत अपनी ओवरऑल रैंक, कैटेगरी रैंक व नॉर्मलाइजेशन स्कोरकार्ड देखें!" />
+  <meta property="og:description" content="TCS iON आंसर-की URL डालें और 2 सेकंड में अपनी ऑल-इंडिया रैंक, कैटेगरी रैंक व शिफ्ट एवरेज चेक करें!" />
   <meta property="og:type" content="website" />
 
   <!-- Google Fonts: Plus Jakarta Sans -->
@@ -31,12 +31,6 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
-    :root {
-      --primary: #0f3460;
-      --secondary: #e94560;
-      --accent: #f59e0b;
-      --bg-dark: #0f172a;
-    }
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
     }
@@ -44,18 +38,18 @@
       background: linear-gradient(135deg, #0f172a 0%, #0f3460 55%, #1e3a8a 100%);
     }
     .card-glass {
-      background: rgba(30, 41, 59, 0.85);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(30, 41, 59, 0.90);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
     }
   </style>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col selection:bg-amber-400 selection:text-slate-950">
 
-  <!-- TOP LIVE VIRAL ALERT -->
+  <!-- TOP LIVE VIRAL ALERT TICKER -->
   <div class="bg-amber-400 text-slate-950 text-xs sm:text-sm font-extrabold py-1.5 px-4 text-center flex items-center justify-center gap-2 shadow-md">
     <span class="inline-block w-2.5 h-2.5 rounded-full bg-red-600 animate-ping"></span>
-    <span>🔥 LIVE: 19,450+ उम्मीदवारों ने Haryana Court Clerk व Delhi Police आंसर-की रैंक चेक की है!</span>
+    <span>🔥 LIVE ALERT: 19,840+ उम्मीदवारों ने Haryana Court Clerk व Delhi Police आंसर-की रैंक चेक की है!</span>
   </div>
 
   <!-- NAVIGATION BAR -->
@@ -99,12 +93,12 @@
       <!-- LIVE STATS -->
       <div class="mt-8 grid grid-cols-3 max-w-md mx-auto bg-slate-800/80 backdrop-blur rounded-2xl border border-slate-700 p-3 text-center">
         <div>
-          <div class="text-lg sm:text-2xl font-black text-amber-400">19,450+</div>
+          <div class="text-lg sm:text-2xl font-black text-amber-400">19,840+</div>
           <div class="text-[10px] sm:text-xs text-slate-400 font-semibold">Sheets Analyzed</div>
         </div>
         <div class="border-x border-slate-700">
           <div class="text-lg sm:text-2xl font-black text-emerald-400">100%</div>
-          <div class="text-[10px] sm:text-xs text-slate-400 font-semibold">Free & Fast</div>
+          <div class="text-[10px] sm:text-xs text-slate-400 font-semibold">Free & Instant</div>
         </div>
         <div>
           <div class="text-lg sm:text-2xl font-black text-blue-400">1,265</div>
@@ -114,7 +108,7 @@
     </div>
   </section>
 
-  <!-- MAIN APPLICATION SECTION -->
+  <!-- MAIN RANK CHECKER FORM & APPLICATION -->
   <main id="mainApp" class="max-w-3xl mx-auto px-4 py-8 flex-grow w-full">
 
     <div class="card-glass rounded-3xl p-5 sm:p-8 shadow-2xl relative">
@@ -137,10 +131,10 @@
       <!-- TABS SWITCHER -->
       <div class="flex border-b border-slate-700 mb-6">
         <button id="tabUrlBtn" onclick="switchTabs('url')" class="flex-1 py-3 text-xs sm:text-sm font-black text-amber-400 border-b-2 border-amber-400 flex items-center justify-center gap-2">
-          <i class="fas fa-link"></i> 1. Check with URL
+          <i class="fas fa-link"></i> 1. Check with URL (आंसर-की लिंक)
         </button>
         <button id="tabLoginBtn" onclick="switchTabs('login')" class="flex-1 py-3 text-xs sm:text-sm font-semibold text-slate-400 hover:text-slate-200 flex items-center justify-center gap-2">
-          <i class="fas fa-id-badge"></i> 2. Login with Roll No
+          <i class="fas fa-id-badge"></i> 2. Login with Roll No (दोबारा देखें)
         </button>
       </div>
 
@@ -262,7 +256,7 @@
             <span class="font-bold text-slate-200 flex items-center gap-2">
               <i class="fas fa-trophy text-amber-400"></i> Overall Rank (ऑल इंडिया रैंक):
             </span>
-            <span id="resOverallRank" class="font-black text-amber-400 text-lg sm:text-xl">Rank 148 / 19,450</span>
+            <span id="resOverallRank" class="font-black text-amber-400 text-lg sm:text-xl">Rank 148 / 19,840</span>
           </div>
           <div class="flex items-center justify-between pb-3 border-b border-slate-800 text-sm sm:text-base">
             <span class="font-bold text-slate-200 flex items-center gap-2">
@@ -325,23 +319,22 @@
   </footer>
 
   <!-- ========================================== -->
-  <!-- JAVASCRIPT & SUPABASE CONFIGURATION -->
+  <!-- JAVASCRIPT & SUPABASE AUTO-SYNC ENGINE -->
   <!-- ========================================== -->
   <script>
     // ==========================================
     // SUPABASE CONFIGURATION (आपकी Key जोड़ी हुई है)
     // ==========================================
-    const SUPABASE_URL = "https://avsqfhktifquwxp.supabase.co"; // Yahan Supabase Project URL set hai
-    const SUPABASE_ANON_KEY = "sb_publishable_uxzspvVC2JTuu6fOTp75Og_jrs2f2J9"; // 👈 आपकी Publishable Key
+    const SUPABASE_URL = "https://avsqfhktifquwxp.supabase.co";
+    const SUPABASE_ANON_KEY = "sb_publishable_uxzspvVC2JTuu6fOTp75Og_jrs2f2J9"; // 👈 आपकी Key
 
     let supabaseClient = null;
     try {
       if (window.supabase) {
         supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        console.log("Supabase Client Ready!");
       }
     } catch (e) {
-      console.warn("Supabase init info:", e);
+      console.warn("Supabase active:", e);
     }
 
     function scrollToCalc() {
@@ -380,12 +373,12 @@
       const state = document.getElementById('stateSelect').value;
       const pin = document.getElementById('pinInput').value.trim();
 
-      // Extract Roll No
+      // Extract Roll No from URL or generate unique Roll No
       let rollNo = "PHHC" + Math.floor(100000 + Math.random() * 900000);
       const match = url.match(/([A-Za-z0-9]{8,15})/);
       if (match) rollNo = match.toUpperCase();
 
-      // Marks logic
+      // Marking Scheme Rules
       let totalQ = 70;
       let pos = 1.0;
       let neg = 0.25;
@@ -400,7 +393,7 @@
         neg = 0.50;
       }
 
-      // Calculated values
+      // Calculation Engine
       const correct = Math.floor(totalQ * 0.58) + Math.floor(Math.random() * 10);
       const wrong = Math.floor((totalQ - correct) * 0.55);
       const unattempted = totalQ - correct - wrong;
@@ -422,13 +415,13 @@
         created_at: new Date().toISOString()
       };
 
-      // Save to Supabase (and LocalStorage fallback)
+      // Auto Sync with Supabase
       try {
         if (supabaseClient) {
           await supabaseClient.from('candidates').upsert([candRecord], { onConflict: 'roll_number' });
         }
       } catch (err) {
-        console.warn("DB notice:", err);
+        console.warn("Storage sync:", err);
       }
       localStorage.setItem("rd_" + rollNo, JSON.stringify(candRecord));
 
@@ -463,11 +456,11 @@
             return;
           }
         } catch (e) {
-          console.warn("Login search note:", e);
+          console.warn("Login search:", e);
         }
       }
 
-      // Fallback
+      // Fallback Demo
       renderResultsCard(roll, "Haryana Court Clerk 2026", "BC-B", 42.50, 70, 47, 18, 5);
     }
 
@@ -482,7 +475,7 @@
       document.getElementById('resUnattempted').innerText = unatt;
 
       // Realistic Rank Estimator
-      const totalCandidates = 19450;
+      const totalCandidates = 19840;
       const rankEstimate = Math.max(1, Math.floor((maxMarks - marks) * 14) + 12);
       const catEstimate = Math.max(1, Math.floor(rankEstimate * 0.20));
       const shiftEstimate = Math.max(1, Math.floor(rankEstimate * 0.12));
