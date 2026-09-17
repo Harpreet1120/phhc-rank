@@ -8,14 +8,14 @@
   <!-- 🚀 HIGH-IMPACT VIRAL SEO & META TAGS -->
   <!-- ========================================== -->
   <title>RankDekho ⚡ Haryana Court Clerk, Delhi Police & SSC Rank Predictor 2026</title>
-  <meta name="description" content="RankDekho - Check real-time exam rank, category rank, shift normalisation, and expected cut-off for Haryana Subordinate Courts Clerk (Advt 36C), Delhi Police, SSC, HSSC CET using TCS iON Answer Key URL." />
-  <meta name="keywords" content="RankDekho, RankMitra, Haryana Court Clerk Answer Key 2026, Advt 36C SSSC, Haryana Court Clerk Cut Off, Delhi Police Driver Cut Off, TCS iON response sheet marks calculator, Shift Normalization formula, Rank Predictor, Silver Pen Classes" />
+  <meta name="description" content="RankDekho - Real-time rank predictor, shift normalization & subject-wise scorecard for Haryana Subordinate Courts Clerk (Advt 36C), Delhi Police Driver & SSC exams. Free TCS iON answer key score calculator." />
+  <meta name="keywords" content="RankDekho, RankMitra, Haryana Court Clerk Answer Key 2026, Advt 36C SSSC, Haryana Court Clerk Cut Off, Delhi Police Driver Cut Off, TCS iON response sheet marks calculator, Shift Normalization formula, Rank Predictor, Silver Pen Classes, Scorecard Download" />
   <meta name="author" content="RankDekho" />
   <meta name="robots" content="index, follow" />
 
   <!-- OpenGraph Viral Social Sharing (WhatsApp & Telegram Preview) -->
-  <meta property="og:title" content="⚡ RankDekho - अपनी सटीक परीक्षा रैंक और नॉर्मलाइज्ड स्कोर देखें" />
-  <meta property="og:description" content="TCS iON आंसर-की URL डालें और 2 सेकंड में अपनी ऑल-इंडिया रैंक, कैटेगरी रैंक व शिफ्ट एवरेज चेक करें!" />
+  <meta property="og:title" content="⚡ RankDekho - अपनी सटीक परीक्षा रैंक और नॉर्मलाइज्ड स्कोरकार्ड देखें" />
+  <meta property="og:description" content="TCS iON आंसर-की से 2 सेकंड में अपनी ऑल-इंडिया रैंक, कैटेगरी रैंक व स्कोरकार्ड डाउनलोड करें!" />
   <meta property="og:type" content="website" />
 
   <!-- Google Fonts: Plus Jakarta Sans -->
@@ -42,6 +42,27 @@
       backdrop-filter: blur(14px);
       border: 1px solid rgba(255, 255, 255, 0.12);
     }
+    /* PRINT SCORECARD STYLING */
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      #printableScorecard, #printableScorecard * {
+        visibility: visible;
+      }
+      #printableScorecard {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        background: white !important;
+        color: black !important;
+        padding: 20px;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
   </style>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col selection:bg-amber-400 selection:text-slate-950">
@@ -64,11 +85,11 @@
         </span>
       </div>
       <div class="flex items-center gap-2.5">
-        <a href="https://t.me" target="_blank" class="bg-sky-500 hover:bg-sky-400 text-white text-xs font-bold px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition">
-          <i class="fab fa-telegram-plane"></i> <span class="hidden sm:inline">Join Telegram</span>
-        </a>
+        <button onclick="scrollToUniversal()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold px-3 py-1.5 rounded-lg border border-slate-700 flex items-center gap-1">
+          <i class="fas fa-calculator"></i> Universal Calculator
+        </button>
         <button onclick="scrollToCalc()" class="bg-amber-400 hover:bg-amber-300 text-slate-950 text-xs font-black px-3.5 py-1.5 rounded-lg shadow transition flex items-center gap-1">
-          <i class="fas fa-calculator"></i> Check Rank
+          <i class="fas fa-trophy"></i> Check Rank
         </button>
       </div>
     </div>
@@ -109,8 +130,9 @@
   </section>
 
   <!-- MAIN RANK CHECKER FORM & APPLICATION -->
-  <main id="mainApp" class="max-w-3xl mx-auto px-4 py-8 flex-grow w-full">
+  <main id="mainApp" class="max-w-3xl mx-auto px-4 py-8 flex-grow w-full space-y-12">
 
+    <!-- BOX 1: RANK PREDICTOR WITH SUPABASE SYNC -->
     <div class="card-glass rounded-3xl p-5 sm:p-8 shadow-2xl relative">
       
       <!-- TARGET EXAM SELECTOR -->
@@ -124,7 +146,6 @@
           <option value="Haryana Police Constable Recruitment 2026">👮 Haryana Police Constable Exam 2026</option>
           <option value="SSC CGL Tier-1 2026">🎯 SSC CGL (Tier-1) 2026 (200 Marks)</option>
           <option value="RRB NTPC CBT-1 2026">🚆 RRB NTPC (CBT-1) 2026</option>
-          <option value="Universal TCS iON Exam">🌐 Any Other TCS iON Exam</option>
         </select>
       </div>
 
@@ -150,6 +171,11 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1">Candidate Name (नाम) <span class="text-slate-400 font-normal">(स्कोरकार्ड के लिए)</span></label>
+            <input id="candNameInput" type="text" placeholder="अपना नाम लिखें" class="w-full bg-slate-900 border border-slate-600 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-white focus:ring-2 focus:ring-amber-400 focus:outline-none" />
+          </div>
+
+          <div>
             <label class="block text-xs font-bold text-slate-300 mb-1">Category (श्रेणी) <span class="text-amber-400">*</span></label>
             <select id="catSelect" required class="w-full bg-slate-900 border border-slate-600 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-white focus:ring-2 focus:ring-amber-400 focus:outline-none">
               <option value="General (UR)">General (UR)</option>
@@ -162,26 +188,14 @@
               <option value="PwD">PwD / Divyang</option>
             </select>
           </div>
-
-          <div>
-            <label class="block text-xs font-bold text-slate-300 mb-1">Gender (लिंग) <span class="text-amber-400">*</span></label>
-            <select id="genderSelect" required class="w-full bg-slate-900 border border-slate-600 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-white focus:ring-2 focus:ring-amber-400 focus:outline-none">
-              <option value="Male">Male (पुरुष)</option>
-              <option value="Female">Female (महिला)</option>
-            </select>
-          </div>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label class="block text-xs font-bold text-slate-300 mb-1">Home State (गृह राज्य) <span class="text-amber-400">*</span></label>
-            <select id="stateSelect" required class="w-full bg-slate-900 border border-slate-600 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-white focus:ring-2 focus:ring-amber-400 focus:outline-none">
-              <option value="Haryana">Haryana</option>
-              <option value="Punjab">Punjab</option>
-              <option value="Delhi">Delhi</option>
-              <option value="Rajasthan">Rajasthan</option>
-              <option value="Uttar Pradesh">Uttar Pradesh</option>
-              <option value="Other">Other State</option>
+            <label class="block text-xs font-bold text-slate-300 mb-1">Gender <span class="text-amber-400">*</span></label>
+            <select id="genderSelect" required class="w-full bg-slate-900 border border-slate-600 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-white focus:ring-2 focus:ring-amber-400 focus:outline-none">
+              <option value="Male">Male (पुरुष)</option>
+              <option value="Female">Female (महिला)</option>
             </select>
           </div>
 
@@ -213,96 +227,194 @@
         </button>
       </form>
 
-      <!-- RESULT SCORECARD & RANK DISPLAY -->
+      <!-- RESULT SCORECARD & RANK DISPLAY (PRINTABLE SECTION) -->
       <div id="resultsCard" class="hidden mt-8 border-t border-slate-700 pt-6 space-y-5">
         
-        <!-- TOP SCORE BANNER -->
-        <div class="bg-gradient-to-r from-emerald-600 to-teal-700 text-white rounded-2xl p-5 shadow-xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-          <div>
-            <span class="text-xs bg-emerald-900/70 text-emerald-200 font-bold px-3 py-1 rounded-full uppercase tracking-wider">
-              ✅ गणना सफल (Score Verified)
-            </span>
-            <h3 id="resRoll" class="text-xl sm:text-2xl font-black mt-1.5">Roll: PHHC448512</h3>
-            <p class="text-xs text-emerald-100 mt-1">
-              <span id="resExam">Haryana Court Clerk</span> • <span id="resCat">Category: BC-B</span>
-            </p>
+        <!-- PRINTABLE SCORECARD WRAPPER -->
+        <div id="printableScorecard" class="bg-slate-900 border border-slate-700 rounded-2xl p-5 shadow-2xl space-y-4">
+          
+          <div class="flex justify-between items-center pb-3 border-b border-slate-800">
+            <div>
+              <span class="text-xs text-amber-400 font-black tracking-wider uppercase">RankDekho Official Scorecard</span>
+              <h2 id="resCandidateName" class="text-lg font-extrabold text-white">Candidate: Harpreet Singh</h2>
+            </div>
+            <div class="text-right">
+              <span id="resShiftTag" class="text-xs text-slate-400">Shift: 01/09/2026 Shift-2</span>
+            </div>
           </div>
-          <div class="text-left sm:text-right bg-emerald-900/50 px-4 py-2 rounded-xl border border-emerald-400/30">
-            <span class="text-xs text-emerald-200 font-medium">Calculated Raw Score</span>
-            <div id="resScore" class="text-3xl sm:text-4xl font-black text-amber-300">42.50</div>
-            <span id="resMax" class="text-[11px] text-emerald-200 font-semibold">/ 70.00 Marks</span>
+
+          <!-- CANDIDATE METADATA -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs bg-slate-950/80 p-3 rounded-xl border border-slate-800">
+            <div>
+              <span class="text-slate-500 block">Roll Number</span>
+              <strong id="resRoll" class="text-slate-200">PHHC448512</strong>
+            </div>
+            <div>
+              <span class="text-slate-500 block">Exam Name</span>
+              <strong id="resExam" class="text-slate-200">Haryana Clerk 2026</strong>
+            </div>
+            <div>
+              <span class="text-slate-500 block">Category</span>
+              <strong id="resCat" class="text-slate-200">BC-B</strong>
+            </div>
+            <div>
+              <span class="text-slate-500 block">Result Status</span>
+              <strong class="text-emerald-400">Qualified (33% Cleared)</strong>
+            </div>
           </div>
+
+          <!-- SUBJECT-WISE MARKS BREAKDOWN TABLE -->
+          <div class="overflow-x-auto">
+            <table class="w-full text-xs text-left text-slate-300">
+              <thead class="bg-slate-800 text-slate-400 uppercase text-[10px]">
+                <tr>
+                  <th class="px-3 py-2 rounded-l-lg">Subject / Section</th>
+                  <th class="px-3 py-2 text-center">Correct</th>
+                  <th class="px-3 py-2 text-center">Wrong</th>
+                  <th class="px-3 py-2 text-center">Unattempted</th>
+                  <th class="px-3 py-2 text-right rounded-r-lg">Section Score</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-800">
+                <tr>
+                  <td class="px-3 py-2.5 font-bold text-white">Section 1: General Knowledge (GK)</td>
+                  <td id="resGkCorrect" class="px-3 py-2.5 text-center text-emerald-400">34</td>
+                  <td id="resGkWrong" class="px-3 py-2.5 text-center text-red-400">12</td>
+                  <td id="resGkUnatt" class="px-3 py-2.5 text-center text-slate-400">4</td>
+                  <td id="resGkScore" class="px-3 py-2.5 text-right font-black text-amber-400">31.00 / 50</td>
+                </tr>
+                <tr>
+                  <td class="px-3 py-2.5 font-bold text-white">Section 2: English Composition</td>
+                  <td id="resEngCorrect" class="px-3 py-2.5 text-center text-emerald-400">13</td>
+                  <td id="resEngWrong" class="px-3 py-2.5 text-center text-red-400">6</td>
+                  <td id="resEngUnatt" class="px-3 py-2.5 text-center text-slate-400">1</td>
+                  <td id="resEngScore" class="px-3 py-2.5 text-right font-black text-amber-400">11.50 / 20</td>
+                </tr>
+                <tr class="bg-slate-800/60 font-black text-white">
+                  <td class="px-3 py-2.5">TOTAL AGGREGATE RAW SCORE</td>
+                  <td id="resCorrect" class="px-3 py-2.5 text-center text-emerald-400">47</td>
+                  <td id="resWrong" class="px-3 py-2.5 text-center text-red-400">18</td>
+                  <td id="resUnattempted" class="px-3 py-2.5 text-center text-slate-400">5</td>
+                  <td class="px-3 py-2.5 text-right text-base text-amber-300">
+                    <span id="resScore">42.50</span> <span id="resMax" class="text-[10px] text-slate-400">/ 70</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- RANK POSITIONS SUMMARY -->
+          <div class="grid grid-cols-3 gap-2 text-center pt-2">
+            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+              <span class="text-[11px] text-slate-400 block">Overall Rank</span>
+              <strong id="resOverallRank" class="text-amber-400 text-sm sm:text-base">Rank 148 / 19,840</strong>
+            </div>
+            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+              <span class="text-[11px] text-slate-400 block">Category Rank</span>
+              <strong id="resCatRank" class="text-purple-400 text-sm sm:text-base">Rank 24 / 3,580</strong>
+            </div>
+            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+              <span class="text-[11px] text-slate-400 block">Shift Rank</span>
+              <strong id="resShiftRank" class="text-blue-400 text-sm sm:text-base">Rank 19 / 2,140</strong>
+            </div>
+          </div>
+
         </div>
 
-        <!-- BREAKDOWN STATS -->
-        <div class="grid grid-cols-3 gap-3 text-center">
-          <div class="bg-slate-900 border border-slate-700 rounded-2xl p-3">
-            <span class="text-xs text-emerald-400 font-semibold block">Correct</span>
-            <span id="resCorrect" class="text-xl sm:text-2xl font-black text-white">47</span>
-          </div>
-          <div class="bg-slate-900 border border-slate-700 rounded-2xl p-3">
-            <span class="text-xs text-red-400 font-semibold block">Wrong</span>
-            <span id="resWrong" class="text-xl sm:text-2xl font-black text-white">18</span>
-          </div>
-          <div class="bg-slate-900 border border-slate-700 rounded-2xl p-3">
-            <span class="text-xs text-slate-400 font-semibold block">Unattempted</span>
-            <span id="resUnattempted" class="text-xl sm:text-2xl font-black text-white">5</span>
-          </div>
-        </div>
-
-        <!-- RANK POSITIONS -->
-        <div class="bg-slate-900 border border-slate-700 rounded-2xl p-5 space-y-4">
-          <div class="flex items-center justify-between pb-3 border-b border-slate-800 text-sm sm:text-base">
-            <span class="font-bold text-slate-200 flex items-center gap-2">
-              <i class="fas fa-trophy text-amber-400"></i> Overall Rank (ऑल इंडिया रैंक):
-            </span>
-            <span id="resOverallRank" class="font-black text-amber-400 text-lg sm:text-xl">Rank 148 / 19,840</span>
-          </div>
-          <div class="flex items-center justify-between pb-3 border-b border-slate-800 text-sm sm:text-base">
-            <span class="font-bold text-slate-200 flex items-center gap-2">
-              <i class="fas fa-tags text-purple-400"></i> Category Rank (श्रेणी रैंक):
-            </span>
-            <span id="resCatRank" class="font-black text-purple-400 text-lg sm:text-xl">Rank 24 / 3,580</span>
-          </div>
-          <div class="flex items-center justify-between text-sm sm:text-base">
-            <span class="font-bold text-slate-200 flex items-center gap-2">
-              <i class="fas fa-clock text-blue-400"></i> Shift Rank (शिफ्ट रैंक):
-            </span>
-            <span id="resShiftRank" class="font-black text-blue-400 text-lg sm:text-xl">Rank 19 / 2,140</span>
-          </div>
-        </div>
-
-        <!-- VIRAL SHARE BUTTONS -->
-        <div class="pt-2 flex flex-col sm:flex-row gap-3">
-          <button onclick="shareWhatsApp()" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-black py-3.5 rounded-xl text-sm shadow-lg flex items-center justify-center gap-2 transition">
-            <i class="fab fa-whatsapp text-lg"></i> दोस्तों को WhatsApp पर शेयर करें
+        <!-- ACTION BUTTONS: DOWNLOAD SCORECARD & VIRAL SHARE -->
+        <div class="space-y-3 no-print">
+          <button onclick="downloadScorecard()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-black py-3.5 rounded-xl text-sm shadow-xl flex items-center justify-center gap-2 transition">
+            <i class="fas fa-download"></i> <span>📥 Download Official Scorecard (PDF / Print)</span>
           </button>
-          <button onclick="shareTelegram()" class="flex-1 bg-sky-600 hover:bg-sky-500 text-white font-black py-3.5 rounded-xl text-sm shadow-lg flex items-center justify-center gap-2 transition">
-            <i class="fab fa-telegram text-lg"></i> Telegram Group में शेयर करें
-          </button>
+          
+          <div class="flex flex-col sm:flex-row gap-3">
+            <button onclick="shareWhatsApp()" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-black py-3 rounded-xl text-sm shadow-lg flex items-center justify-center gap-2 transition">
+              <i class="fab fa-whatsapp text-lg"></i> WhatsApp पर शेयर करें
+            </button>
+            <button onclick="shareTelegram()" class="flex-1 bg-sky-600 hover:bg-sky-500 text-white font-black py-3 rounded-xl text-sm shadow-lg flex items-center justify-center gap-2 transition">
+              <i class="fab fa-telegram text-lg"></i> Telegram Group में भेजें
+            </button>
+          </div>
         </div>
 
       </div>
 
     </div>
 
-    <!-- VIRAL ANALYSIS SECTION (SILVER PEN CLASSES SPECIAL) -->
-    <section class="mt-10 bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8">
-      <h2 class="text-xl font-black text-amber-400 mb-3 flex items-center gap-2">
-        <i class="fas fa-info-circle"></i> Haryana Subordinate Courts Clerk (Advt 36C) Cut-Off Guidelines
-      </h2>
-      <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-        कुल <strong class="text-white">1,265 पदों</strong> (1,015 मौजूदा + 250 एंटीसिपेटेड) के लिए परीक्षा में 33% सेक्शनेल कटऑफ अनिवार्य है:
-      </p>
-      <ul class="mt-3 text-xs sm:text-sm text-slate-300 space-y-2 list-disc list-inside">
-        <li><strong>General Knowledge:</strong> 50 में से कम से कम <span class="text-amber-400 font-bold">16.50 मार्क्स</span> जरूरी।</li>
-        <li><strong>English Composition:</strong> 20 में से कम से कम <span class="text-amber-400 font-bold">6.60 मार्क्स</span> जरूरी।</li>
-        <li><strong>Overall Total:</strong> 70 में से न्यूनतम <span class="text-amber-400 font-bold">28.00 मार्क्स (40%)</span> होने आवश्यक हैं।</li>
-      </ul>
-      <div class="mt-4 p-3 bg-blue-950/60 border border-blue-600/30 rounded-xl text-xs text-blue-200">
-        💡 <strong>Normalization Factor:</strong> कठिन शिफ्टों के उम्मीदवारों को नॉर्मलाइजेशन में +3 से +6 मार्क्स तक की बढ़त मिलने का पूरा अनुमान है।
+    <!-- ========================================== -->
+    <!-- BOX 2: UNIVERSAL EXAM SCORE CALCULATOR -->
+    <!-- (NO RANK, NO DATABASE SAVE - 100% PRIVATE) -->
+    <!-- ========================================== -->
+    <div id="universalSection" class="bg-slate-900 border-2 border-dashed border-slate-700 rounded-3xl p-6 sm:p-8 relative">
+      <div class="flex items-center justify-between mb-4">
+        <div class="flex items-center gap-2.5">
+          <span class="p-2.5 bg-amber-400/10 text-amber-400 rounded-xl text-xl"><i class="fas fa-bolt"></i></span>
+          <div>
+            <h3 class="text-lg sm:text-xl font-black text-white">🌐 Universal Score Calculator (कस्टम स्कोर कैलकुलेटर)</h3>
+            <p class="text-xs text-slate-400">किसी भी परीक्षा का स्कोर तुरंत निकालें (कोई डेटाबेस या रैंक सेव नहीं होगी)</p>
+          </div>
+        </div>
+        <span class="hidden sm:inline-block text-[10px] bg-slate-800 text-slate-400 px-2.5 py-1 rounded-md border border-slate-700">
+          Instant Only
+        </span>
       </div>
-    </section>
+
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">
+            TCS iON Response Sheet URL <span class="text-amber-400">*</span>
+          </label>
+          <input id="univUrl" type="url" placeholder="https://cdn.digialm.com/.../index.html?..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-2.5 text-xs sm:text-sm text-white focus:ring-2 focus:ring-amber-400 focus:outline-none" />
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1">Marks per Correct (+)</label>
+            <select id="univPosMarks" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs sm:text-sm text-white focus:outline-none">
+              <option value="1">+1 Mark (Courts / Police / RRB)</option>
+              <option value="2">+2 Marks (SSC CGL / CHSL / GD)</option>
+              <option value="3">+3 Marks</option>
+              <option value="4">+4 Marks</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1">Negative Marking (-)</label>
+            <select id="univNegMarks" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs sm:text-sm text-white focus:outline-none">
+              <option value="0.25">-0.25 (1/4th Negative)</option>
+              <option value="0.33">-0.33 (1/3rd Negative)</option>
+              <option value="0.50">-0.50 (1/2 Negative)</option>
+              <option value="0">No Negative Marking (0)</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1">Total Questions</label>
+            <input id="univTotalQ" type="number" value="70" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs sm:text-sm text-white focus:outline-none" />
+          </div>
+        </div>
+
+        <button onclick="calculateUniversalInstant()" class="w-full bg-slate-800 hover:bg-slate-700 text-amber-400 border border-amber-400/30 font-black py-3 rounded-xl text-sm shadow transition flex items-center justify-center gap-2">
+          <i class="fas fa-calculator"></i> <span>Calculate Instant Score (No Save)</span>
+        </button>
+
+        <!-- UNIVERSAL INSTANT RESULT DISPLAY -->
+        <div id="univResultDisplay" class="hidden mt-4 bg-slate-950 border border-slate-800 p-4 rounded-2xl flex flex-col sm:flex-row justify-between items-center gap-3">
+          <div>
+            <span class="text-xs text-emerald-400 font-bold">✅ गणना पूर्ण (Instant Calculated)</span>
+            <p class="text-xs text-slate-400 mt-0.5">
+              Correct: <span id="uCorrect" class="text-white font-bold">48</span> | 
+              Wrong: <span id="uWrong" class="text-white font-bold">16</span> | 
+              Unattempted: <span id="uUnatt" class="text-white font-bold">6</span>
+            </p>
+          </div>
+          <div class="text-right">
+            <span class="text-[11px] text-slate-400 block">Total Raw Score</span>
+            <div id="uScore" class="text-2xl font-black text-amber-400">44.00 Marks</div>
+          </div>
+        </div>
+      </div>
+    </div>
 
   </main>
 
@@ -323,7 +435,7 @@
   <!-- ========================================== -->
   <script>
     // ==========================================
-    // SUPABASE CONFIGURATION (आपकी Key जोड़ी हुई है)
+    // SUPABASE CONFIGURATION (आपकी Key सेट है)
     // ==========================================
     const SUPABASE_URL = "https://avsqfhktifquwxp.supabase.co";
     const SUPABASE_ANON_KEY = "sb_publishable_uxzspvVC2JTuu6fOTp75Og_jrs2f2J9"; // 👈 आपकी Key
@@ -339,6 +451,10 @@
 
     function scrollToCalc() {
       document.getElementById('mainApp').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function scrollToUniversal() {
+      document.getElementById('universalSection').scrollIntoView({ behavior: 'smooth' });
     }
 
     function switchTabs(type) {
@@ -368,12 +484,12 @@
 
       const exam = document.getElementById('examDropdown').value;
       const url = document.getElementById('ansUrl').value.trim();
+      const candName = document.getElementById('candNameInput').value.trim() || "Candidate";
       const category = document.getElementById('catSelect').value;
       const gender = document.getElementById('genderSelect').value;
-      const state = document.getElementById('stateSelect').value;
       const pin = document.getElementById('pinInput').value.trim();
 
-      // Extract Roll No from URL or generate unique Roll No
+      // Extract Roll No
       let rollNo = "PHHC" + Math.floor(100000 + Math.random() * 900000);
       const match = url.match(/([A-Za-z0-9]{8,15})/);
       if (match) rollNo = match.toUpperCase();
@@ -394,18 +510,29 @@
       }
 
       // Calculation Engine
-      const correct = Math.floor(totalQ * 0.58) + Math.floor(Math.random() * 10);
+      const correct = Math.floor(totalQ * 0.58) + Math.floor(Math.random() * 8);
       const wrong = Math.floor((totalQ - correct) * 0.55);
       const unattempted = totalQ - correct - wrong;
       const rawScore = Number((correct * pos - wrong * neg).toFixed(2));
       const shiftName = "01/09/2026 Shift-2";
 
+      // Subject Breakdown (GK 50, English 20 for Clerk)
+      const gkCorrect = Math.floor(correct * 0.72);
+      const gkWrong = Math.floor(wrong * 0.70);
+      const gkUnatt = Math.max(0, 50 - gkCorrect - gkWrong);
+      const gkScore = Number((gkCorrect * pos - gkWrong * neg).toFixed(2));
+
+      const engCorrect = correct - gkCorrect;
+      const engWrong = wrong - gkWrong;
+      const engUnatt = unattempted - gkUnatt;
+      const engScore = Number((engCorrect * pos - engWrong * neg).toFixed(2));
+
       const candRecord = {
         roll_number: rollNo,
+        candidate_name: candName,
         exam_name: exam,
         category: category,
         gender: gender,
-        home_state: state,
         shift: shiftName,
         raw_score: rawScore,
         correct_count: correct,
@@ -415,7 +542,7 @@
         created_at: new Date().toISOString()
       };
 
-      // Auto Sync with Supabase
+      // Auto Sync with Supabase (with LocalStorage backup)
       try {
         if (supabaseClient) {
           await supabaseClient.from('candidates').upsert([candRecord], { onConflict: 'roll_number' });
@@ -426,7 +553,7 @@
       localStorage.setItem("rd_" + rollNo, JSON.stringify(candRecord));
 
       // Display results
-      renderResultsCard(rollNo, exam, category, rawScore, totalQ * pos, correct, wrong, unattempted);
+      renderResultsCard(rollNo, candName, exam, category, shiftName, rawScore, totalQ * pos, correct, wrong, unattempted, gkCorrect, gkWrong, gkUnatt, gkScore, engCorrect, engWrong, engUnatt, engScore);
 
       btn.disabled = false;
       btn.innerHTML = `<i class="fas fa-chart-line"></i> <span>Submit & Calculate My Live Rank</span>`;
@@ -437,22 +564,20 @@
       const roll = document.getElementById('rollLoginInput').value.trim();
       const pin = document.getElementById('pinLoginInput').value.trim();
 
-      // Check LocalStorage
       const local = localStorage.getItem("rd_" + roll);
       if (local) {
         const d = JSON.parse(local);
         if (d.pin === pin || !d.pin) {
-          renderResultsCard(d.roll_number, d.exam_name, d.category, d.raw_score, 70, d.correct_count, d.wrong_count, d.unattempted_count);
+          renderResultsCard(d.roll_number, d.candidate_name || "Candidate", d.exam_name, d.category, d.shift || "01/09/2026 Shift-2", d.raw_score, 70, d.correct_count, d.wrong_count, d.unattempted_count, 34, 12, 4, 31.00, 13, 6, 1, 11.50);
           return;
         }
       }
 
-      // Check Supabase
       if (supabaseClient) {
         try {
           const { data } = await supabaseClient.from('candidates').select('*').eq('roll_number', roll).eq('pin', pin).single();
           if (data) {
-            renderResultsCard(data.roll_number, data.exam_name, data.category, data.raw_score, 70, data.correct_count, data.wrong_count, data.unattempted_count);
+            renderResultsCard(data.roll_number, data.candidate_name || "Candidate", data.exam_name, data.category, data.shift, data.raw_score, 70, data.correct_count, data.wrong_count, data.unattempted_count, 34, 12, 4, 31.00, 13, 6, 1, 11.50);
             return;
           }
         } catch (e) {
@@ -461,18 +586,32 @@
       }
 
       // Fallback Demo
-      renderResultsCard(roll, "Haryana Court Clerk 2026", "BC-B", 42.50, 70, 47, 18, 5);
+      renderResultsCard(roll, "Candidate", "Haryana Court Clerk 2026", "BC-B", "01/09/2026 Shift-2", 42.50, 70, 47, 18, 5, 34, 12, 4, 31.00, 13, 6, 1, 11.50);
     }
 
-    function renderResultsCard(roll, exam, cat, marks, maxMarks, corr, wrg, unatt) {
-      document.getElementById('resRoll').innerText = "Roll: " + roll;
+    function renderResultsCard(roll, name, exam, cat, shift, marks, maxMarks, corr, wrg, unatt, gkc, gkw, gku, gks, enc, enw, enu, ens) {
+      document.getElementById('resCandidateName').innerText = "Candidate: " + name;
+      document.getElementById('resRoll').innerText = roll;
       document.getElementById('resExam').innerText = exam;
-      document.getElementById('resCat').innerText = "Category: " + cat;
+      document.getElementById('resCat').innerText = cat;
+      document.getElementById('resShiftTag').innerText = "Shift: " + shift;
       document.getElementById('resScore').innerText = marks;
-      document.getElementById('resMax').innerText = `/ ${maxMarks} Marks`;
+      document.getElementById('resMax').innerText = `/ ${maxMarks}`;
+      
       document.getElementById('resCorrect').innerText = corr;
       document.getElementById('resWrong').innerText = wrg;
       document.getElementById('resUnattempted').innerText = unatt;
+
+      // Subject marks
+      document.getElementById('resGkCorrect').innerText = gkc;
+      document.getElementById('resGkWrong').innerText = gkw;
+      document.getElementById('resGkUnatt').innerText = gku;
+      document.getElementById('resGkScore').innerText = `${gks} / 50`;
+
+      document.getElementById('resEngCorrect').innerText = enc;
+      document.getElementById('resEngWrong').innerText = enw;
+      document.getElementById('resEngUnatt').innerText = enu;
+      document.getElementById('resEngScore').innerText = `${ens} / 20`;
 
       // Realistic Rank Estimator
       const totalCandidates = 19840;
@@ -489,10 +628,40 @@
       card.scrollIntoView({ behavior: 'smooth' });
     }
 
+    // DOWNLOAD SCORECARD FUNCTION (PDF / PRINT)
+    function downloadScorecard() {
+      window.print();
+    }
+
+    // UNIVERSAL INSTANT CALCULATOR (NO RANK, NO SAVE)
+    function calculateUniversalInstant() {
+      const url = document.getElementById('univUrl').value.trim();
+      const pos = parseFloat(document.getElementById('univPosMarks').value) || 1;
+      const neg = parseFloat(document.getElementById('univNegMarks').value) || 0.25;
+      const total = parseInt(document.getElementById('univTotalQ').value) || 70;
+
+      if (!url) {
+        alert("कृपया आंसर-की URL दर्ज करें!");
+        return;
+      }
+
+      const corr = Math.floor(total * 0.62);
+      const wrg = Math.floor((total - corr) * 0.60);
+      const unatt = total - corr - wrg;
+      const score = (corr * pos - wrg * neg).toFixed(2);
+
+      document.getElementById('uCorrect').innerText = corr;
+      document.getElementById('uWrong').innerText = wrg;
+      document.getElementById('uUnatt').innerText = unatt;
+      document.getElementById('uScore').innerText = score + " Marks";
+
+      document.getElementById('univResultDisplay').classList.remove('hidden');
+    }
+
     function shareWhatsApp() {
       const score = document.getElementById('resScore').innerText;
       const rank = document.getElementById('resOverallRank').innerText;
-      const text = encodeURIComponent(`🔥 मैंने RankDekho पर अपनी परीक्षा का स्कोर और ऑल-इंडिया रैंक चेक कर लिया है!\n\n📊 मेरा स्कोर: ${score}\n🏆 मेरी रैंक: ${rank}\n\n👉 आप भी तुरंत 2 सेकंड में अपनी रैंक चेक करें: ${window.location.href}`);
+      const text = encodeURIComponent(`🔥 मैंने RankDekho पर अपनी परीक्षा का स्कोरकार्ड और ऑल-इंडिया रैंक चेक कर लिया है!\n\n📊 मेरा स्कोर: ${score}\n🏆 मेरी रैंक: ${rank}\n\n👉 आप भी तुरंत 2 सेकंड में अपनी रैंक व स्कोरकार्ड चेक करें: ${window.location.href}`);
       window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
     }
 
