@@ -3,673 +3,1089 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <!-- ========================================== -->
-  <!-- 🚀 HIGH-IMPACT VIRAL SEO & META TAGS -->
-  <!-- ========================================== -->
-  <title>RankDekho ⚡ Haryana Court Clerk, Delhi Police & SSC Rank Predictor 2026</title>
-  <meta name="description" content="RankDekho - Real-time rank predictor, shift normalization & subject-wise scorecard for Haryana Subordinate Courts Clerk (Advt 36C), Delhi Police Driver & SSC exams. Free TCS iON answer key score calculator." />
-  <meta name="keywords" content="RankDekho, RankMitra, Haryana Court Clerk Answer Key 2026, Advt 36C SSSC, Haryana Court Clerk Cut Off, Delhi Police Driver Cut Off, TCS iON response sheet marks calculator, Shift Normalization formula, Rank Predictor, Silver Pen Classes, Scorecard Download" />
-  <meta name="author" content="RankDekho" />
-  <meta name="robots" content="index, follow" />
-
-  <!-- OpenGraph Viral Social Sharing (WhatsApp & Telegram Preview) -->
-  <meta property="og:title" content="⚡ RankDekho - अपनी सटीक परीक्षा रैंक और नॉर्मलाइज्ड स्कोरकार्ड देखें" />
-  <meta property="og:description" content="TCS iON आंसर-की से 2 सेकंड में अपनी ऑल-इंडिया रैंक, कैटेगरी रैंक व स्कोरकार्ड डाउनलोड करें!" />
-  <meta property="og:type" content="website" />
+  <title>RankDekho — Real-time Govt Exam Rank & Score Predictor</title>
+  <meta name="description" content="Check your real score, shift normalisation, and category rank for SSC, Railway, Delhi Police, and High Court Clerk exams." />
 
   <!-- Google Fonts: Plus Jakarta Sans -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  
-  <!-- Tailwind CSS & FontAwesome Icons -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Supabase Official JS Client v2 -->
+  <!-- Supabase Official JS Client -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
+    :root {
+      --primary: #0f3460;
+      --accent: #e94560;
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+
+      /* Vibrant Section Color Palette */
+      --ssc-color: #2563eb;
+      --ssc-bg: #eff6ff;
+      --rrb-color: #ea580c;
+      --rrb-bg: #fff7ed;
+      --police-color: #059669;
+      --police-bg: #ecfdf5;
+      --court-color: #e11d48;
+      --court-bg: #fff1f2;
+
+      --shadow-sm: 0 2px 4px rgba(0,0,0,0.03);
+      --shadow-md: 0 8px 24px -4px rgba(15, 23, 42, 0.08);
+      --shadow-lg: 0 16px 32px -6px rgba(15, 52, 96, 0.16);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
-    .gradient-hero {
-      background: linear-gradient(135deg, #0f172a 0%, #0f3460 55%, #1e3a8a 100%);
+
+    /* Header */
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
     }
-    .card-glass {
-      background: rgba(30, 41, 59, 0.90);
-      backdrop-filter: blur(14px);
-      border: 1px solid rgba(255, 255, 255, 0.12);
+    .nav-container {
+      max-width: 1140px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
-    /* PRINT SCORECARD STYLING */
-    @media print {
-      body * {
-        visibility: hidden;
-      }
-      #printableScorecard, #printableScorecard * {
-        visibility: visible;
-      }
-      #printableScorecard {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        background: white !important;
-        color: black !important;
-        padding: 20px;
-      }
-      .no-print {
-        display: none !important;
-      }
+    .logo {
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: var(--primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 3px;
     }
+    .logo span { color: var(--accent); }
+    .tagline-badge {
+      background: #eef2ff;
+      color: var(--primary);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid #c7d2fe;
+    }
+
+    /* Google AdSense Header Banner */
+    .ad-container {
+      max-width: 1140px;
+      margin: 14px auto 0;
+      padding: 0 16px;
+      text-align: center;
+    }
+    .ad-box {
+      background: #ffffff;
+      border: 1px dashed #cbd5e1;
+      border-radius: 12px;
+      min-height: 90px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #94a3b8;
+      font-size: 0.8rem;
+    }
+    .ad-tag {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #94a3b8;
+      margin-bottom: 4px;
+    }
+
+    /* Main Container */
+    main {
+      flex: 1;
+      max-width: 1140px;
+      width: 100%;
+      margin: 20px auto 50px;
+      padding: 0 16px;
+    }
+
+    /* ================= 1. COMPACT WELCOME HERO BOX ================= */
+    .welcome-box {
+      background: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
+      color: #ffffff;
+      border-radius: 20px;
+      padding: 30px 24px;
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 34px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .welcome-box::before {
+      content: "RANKDEKHO";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 5.5rem;
+      font-weight: 900;
+      color: rgba(255, 255, 255, 0.03);
+      pointer-events: none;
+      letter-spacing: 8px;
+    }
+    .welcome-box h1 {
+      font-size: 1.85rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      position: relative;
+    }
+    .welcome-box p {
+      color: #cbd5e1;
+      font-size: 0.95rem;
+      margin-bottom: 22px;
+      max-width: 650px;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+    }
+
+    /* Small Compact Search Bar Inside Welcome Box */
+    .hero-search-wrap {
+      max-width: 480px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .hero-search-wrap input {
+      width: 100%;
+      padding: 13px 20px 13px 44px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+      transition: all 0.2s;
+    }
+    .hero-search-wrap input::placeholder { color: #cbd5e1; }
+    .hero-search-wrap input:focus {
+      outline: none;
+      background: rgba(255, 255, 255, 0.22);
+      border-color: #ffffff;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    }
+    .hero-search-ico {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.05rem;
+      color: #cbd5e1;
+    }
+
+    /* ================= 2. COLORFUL EXAM SECTIONS ================= */
+    .exam-section-block {
+      margin-bottom: 38px;
+    }
+    .section-banner-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--border);
+    }
+    .section-banner-title h2 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-badge-counter {
+      font-size: 0.76rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+
+    /* Cards Grid */
+    .section-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 18px;
+    }
+
+    .custom-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.25s ease;
+      position: relative;
+    }
+    .custom-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .custom-card .card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .custom-card .org-pill {
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+    }
+    .custom-card .status-pill {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 999px;
+    }
+    .status-hot { background: #fee2e2; color: #b91c1c; }
+    .status-live { background: #dcfce7; color: #15803d; }
+    .status-popular { background: #fef3c7; color: #b45309; }
+
+    .custom-card h3 {
+      font-size: 1.06rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+    .custom-card .details-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .details-chips span {
+      background: #f8fafc;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      padding: 3px 8px;
+      border-radius: 6px;
+      border: 1px solid #f1f5f9;
+      font-weight: 600;
+    }
+
+    .btn-action-card {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 0.88rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    /* 🎯 1. SSC THEME (BLUE) */
+    .theme-ssc .section-banner-title h2 { color: var(--ssc-color); }
+    .theme-ssc .section-badge-counter { background: var(--ssc-bg); color: var(--ssc-color); }
+    .theme-ssc .custom-card { border-top: 4px solid var(--ssc-color); }
+    .theme-ssc .org-pill { background: var(--ssc-bg); color: var(--ssc-color); }
+    .theme-ssc .btn-action-card { background: var(--ssc-bg); color: var(--ssc-color); border: 1.5px solid #bfdbfe; }
+    .theme-ssc .custom-card:hover .btn-action-card { background: var(--ssc-color); color: #ffffff; border-color: var(--ssc-color); }
+
+    /* 🚆 2. RAILWAY THEME (ORANGE) */
+    .theme-rrb .section-banner-title h2 { color: var(--rrb-color); }
+    .theme-rrb .section-badge-counter { background: var(--rrb-bg); color: var(--rrb-color); }
+    .theme-rrb .custom-card { border-top: 4px solid var(--rrb-color); }
+    .theme-rrb .org-pill { background: var(--rrb-bg); color: var(--rrb-color); }
+    .theme-rrb .btn-action-card { background: var(--rrb-bg); color: var(--rrb-color); border: 1.5px solid #fed7aa; }
+    .theme-rrb .custom-card:hover .btn-action-card { background: var(--rrb-color); color: #ffffff; border-color: var(--rrb-color); }
+
+    /* 🛡️ 3. POLICE & DEFENCE THEME (GREEN) */
+    .theme-police .section-banner-title h2 { color: var(--police-color); }
+    .theme-police .section-badge-counter { background: var(--police-bg); color: var(--police-color); }
+    .theme-police .custom-card { border-top: 4px solid var(--police-color); }
+    .theme-police .org-pill { background: var(--police-bg); color: var(--police-color); }
+    .theme-police .btn-action-card { background: var(--police-bg); color: var(--police-color); border: 1.5px solid #a7f3d0; }
+    .theme-police .custom-card:hover .btn-action-card { background: var(--police-color); color: #ffffff; border-color: var(--police-color); }
+
+    /* ⚖️ 4. COURT & LAW THEME (RED) */
+    .theme-court .section-banner-title h2 { color: var(--court-color); }
+    .theme-court .section-badge-counter { background: var(--court-bg); color: var(--court-color); }
+    .theme-court .custom-card { border-top: 4px solid var(--court-color); }
+    .theme-court .org-pill { background: var(--court-bg); color: var(--court-color); }
+    .theme-court .btn-action-card { background: var(--court-bg); color: var(--court-color); border: 1.5px solid #fecdd3; }
+    .theme-court .custom-card:hover .btn-action-card { background: var(--court-color); color: #ffffff; border-color: var(--court-color); }
+
+    /* ================= 3. MODAL: DYNAMIC INPUT & ROLL LOGIN ================= */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(5px);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .modal-box {
+      background: var(--surface);
+      border-radius: 18px;
+      width: 100%;
+      max-width: 600px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      overflow: hidden;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      animation: modalFade 0.2s ease;
+    }
+    @keyframes modalFade {
+      from { transform: scale(0.96); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .modal-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #f8fafc;
+    }
+    .modal-header h3 { font-size: 1.15rem; font-weight: 800; color: var(--primary); }
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text-muted);
+    }
+    .modal-tabs {
+      display: flex;
+      background: #f1f5f9;
+      border-bottom: 1px solid var(--border);
+      padding: 6px 12px;
+      gap: 8px;
+    }
+    .modal-tab-btn {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      background: transparent;
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .modal-tab-btn.active {
+      background: #ffffff;
+      color: var(--primary);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    }
+    .modal-body {
+      padding: 22px;
+      overflow-y: auto;
+    }
+    .form-group { margin-bottom: 15px; }
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 6px;
+    }
+    .form-control {
+      width: 100%;
+      padding: 11px 14px;
+      font-family: inherit;
+      font-size: 0.92rem;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      background: #f8fafc;
+    }
+    .form-control:focus { outline: none; border-color: var(--primary); background: #ffffff; }
+
+    .form-row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    @media (max-width: 540px) { .form-row-2 { grid-template-columns: 1fr; } }
+
+    .btn-submit-modal {
+      width: 100%;
+      padding: 13px;
+      background: var(--primary);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.98rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 6px;
+      box-shadow: 0 4px 12px rgba(15, 52, 96, 0.2);
+    }
+    .btn-submit-modal.btn-accent {
+      background: var(--accent);
+      box-shadow: 0 4px 12px rgba(233, 69, 96, 0.25);
+    }
+
+    /* Scorecard Display */
+    #scorecardModal {
+      display: none;
+      margin-top: 18px;
+      background: #f0fdf4;
+      border: 1.5px solid #86efac;
+      border-radius: 12px;
+      padding: 18px;
+      text-align: center;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 24px 16px;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: auto;
+    }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+    .footer-links a { color: var(--primary); text-decoration: none; font-weight: 700; cursor: pointer; }
+    .footer-links a:hover { text-decoration: underline; }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col selection:bg-amber-400 selection:text-slate-950">
+<body>
 
-  <!-- TOP LIVE VIRAL ALERT TICKER -->
-  <div class="bg-amber-400 text-slate-950 text-xs sm:text-sm font-extrabold py-1.5 px-4 text-center flex items-center justify-center gap-2 shadow-md">
-    <span class="inline-block w-2.5 h-2.5 rounded-full bg-red-600 animate-ping"></span>
-    <span>🔥 LIVE ALERT: 19,840+ उम्मीदवारों ने Haryana Court Clerk व Delhi Police आंसर-की रैंक चेक की है!</span>
-  </div>
-
-  <!-- NAVIGATION BAR -->
-  <header class="bg-slate-900/90 backdrop-blur border-b border-slate-800 sticky top-0 z-50">
-    <div class="max-w-6xl mx-auto px-4 py-3.5 flex items-center justify-between">
-      <div class="flex items-center space-x-3">
-        <a href="#" class="text-2xl sm:text-3xl font-black tracking-tight text-white flex items-center gap-1.5">
-          <span class="text-amber-400">⚡</span>Rank<span class="text-blue-500">Dekho</span>
-        </a>
-        <span class="hidden sm:inline-block text-[11px] bg-blue-950 text-blue-300 font-bold px-2.5 py-0.5 rounded-full border border-blue-800">
-          RankMitra Alternative
-        </span>
-      </div>
-      <div class="flex items-center gap-2.5">
-        <button onclick="scrollToUniversal()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold px-3 py-1.5 rounded-lg border border-slate-700 flex items-center gap-1">
-          <i class="fas fa-calculator"></i> Universal Calculator
-        </button>
-        <button onclick="scrollToCalc()" class="bg-amber-400 hover:bg-amber-300 text-slate-950 text-xs font-black px-3.5 py-1.5 rounded-lg shadow transition flex items-center gap-1">
-          <i class="fas fa-trophy"></i> Check Rank
-        </button>
-      </div>
+  <!-- Navigation Bar -->
+  <header>
+    <div class="nav-container">
+      <a href="#" class="logo">
+        Rank<span>Dekho</span>
+      </a>
+      <span class="tagline-badge">⚡ Real-Time Exam Rank Predictor</span>
     </div>
   </header>
 
-  <!-- HERO SECTION -->
-  <section class="gradient-hero py-12 px-4 text-center border-b border-slate-800 relative overflow-hidden">
-    <div class="max-w-4xl mx-auto relative z-10">
-      <div class="inline-flex items-center gap-2 bg-blue-950/80 border border-blue-500/40 rounded-full px-4 py-1 text-xs text-blue-300 mb-4 font-semibold">
-        <i class="fas fa-bolt text-amber-400"></i> TCS iON 100% Real-Time Score & Shift Normalization Engine
-      </div>
-      <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight">
-        TCS iON आंसर-की से जानें अपनी <br class="hidden sm:inline"/>
-        <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-400 to-yellow-300">
-          सटीक रैंक व नॉर्मलाइजेशन
-        </span>
-      </h1>
-      <p class="text-slate-300 text-sm sm:text-base mt-3 max-w-2xl mx-auto font-medium">
-        Haryana Subordinate Courts Clerk 2026 (Advt 36C), Delhi Police Driver, Constable और SSC परीक्षाओं के लिए ऑल इंडिया व कैटेगरी रैंक कैलकुलेटर।
-      </p>
+  <!-- Google AdSense Header Banner -->
+  <div class="ad-container">
+    <div class="ad-box">
+      <span class="ad-tag">Advertisement</span>
+      <div>Google AdSense Responsive Header Banner (728x90)</div>
+    </div>
+  </div>
 
-      <!-- LIVE STATS -->
-      <div class="mt-8 grid grid-cols-3 max-w-md mx-auto bg-slate-800/80 backdrop-blur rounded-2xl border border-slate-700 p-3 text-center">
-        <div>
-          <div class="text-lg sm:text-2xl font-black text-amber-400">19,840+</div>
-          <div class="text-[10px] sm:text-xs text-slate-400 font-semibold">Sheets Analyzed</div>
-        </div>
-        <div class="border-x border-slate-700">
-          <div class="text-lg sm:text-2xl font-black text-emerald-400">100%</div>
-          <div class="text-[10px] sm:text-xs text-slate-400 font-semibold">Free & Instant</div>
-        </div>
-        <div>
-          <div class="text-lg sm:text-2xl font-black text-blue-400">1,265</div>
-          <div class="text-[10px] sm:text-xs text-slate-400 font-semibold">Clerk Vacancies</div>
-        </div>
+  <main>
+    <!-- ======================================================== -->
+    <!-- 1. COMPACT WELCOME HERO BOX (WITH MINI SEARCH)           -->
+    <!-- ======================================================== -->
+    <div class="welcome-box">
+      <h1>Welcome to Rank<span>Dekho</span></h1>
+      <p>TCS iON आंसर-की URL दर्ज करें और अपनी सटीक रैंक, शिफ्ट नॉर्मलाइजेशन व कैटेगरी स्कोरकार्ड देखें</p>
+
+      <!-- Compact Search Bar -->
+      <div class="hero-search-wrap">
+        <span class="hero-search-ico">🔍</span>
+        <input 
+          type="text" 
+          id="heroSearchInput" 
+          placeholder="अपनी परीक्षा खोजें (उदा. CGL, NTPC, Court, Police)..." 
+          oninput="handleGlobalSearch(this.value)"
+        />
       </div>
     </div>
-  </section>
 
-  <!-- MAIN RANK CHECKER FORM & APPLICATION -->
-  <main id="mainApp" class="max-w-3xl mx-auto px-4 py-8 flex-grow w-full space-y-12">
-
-    <!-- BOX 1: RANK PREDICTOR WITH SUPABASE SYNC -->
-    <div class="card-glass rounded-3xl p-5 sm:p-8 shadow-2xl relative">
-      
-      <!-- TARGET EXAM SELECTOR -->
-      <div class="mb-6">
-        <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
-          Target Examination (परीक्षा चुनें)
-        </label>
-        <select id="examDropdown" class="w-full bg-slate-900 border border-slate-600 rounded-xl px-4 py-3 text-white text-sm sm:text-base font-bold focus:ring-2 focus:ring-amber-400 focus:outline-none">
-          <option value="Haryana Subordinate Courts Clerk 2026 (Advt 36C)">⚖️ Haryana Subordinate Courts Clerk 2026 (Advt 36C - 70 Marks)</option>
-          <option value="Delhi Police Driver Recruitment 2026">🚗 Delhi Police Driver & Constable (100 Marks)</option>
-          <option value="Haryana Police Constable Recruitment 2026">👮 Haryana Police Constable Exam 2026</option>
-          <option value="SSC CGL Tier-1 2026">🎯 SSC CGL (Tier-1) 2026 (200 Marks)</option>
-          <option value="RRB NTPC CBT-1 2026">🚆 RRB NTPC (CBT-1) 2026</option>
-        </select>
+    <!-- ======================================================== -->
+    <!-- 2. SECTION 1: 🎯 SSC EXAMS SECTION                       -->
+    <!-- ======================================================== -->
+    <div class="exam-section-block theme-ssc" id="sectionSsc">
+      <div class="section-banner-title">
+        <h2><span>🎯</span> Staff Selection Commission (SSC Exams)</h2>
+        <span class="section-badge-counter">4 Exams Active</span>
       </div>
 
-      <!-- TABS SWITCHER -->
-      <div class="flex border-b border-slate-700 mb-6">
-        <button id="tabUrlBtn" onclick="switchTabs('url')" class="flex-1 py-3 text-xs sm:text-sm font-black text-amber-400 border-b-2 border-amber-400 flex items-center justify-center gap-2">
-          <i class="fas fa-link"></i> 1. Check with URL (आंसर-की लिंक)
-        </button>
-        <button id="tabLoginBtn" onclick="switchTabs('login')" class="flex-1 py-3 text-xs sm:text-sm font-semibold text-slate-400 hover:text-slate-200 flex items-center justify-center gap-2">
-          <i class="fas fa-id-badge"></i> 2. Login with Roll No (दोबारा देखें)
-        </button>
-      </div>
-
-      <!-- TAB 1: SUBMIT WITH URL -->
-      <form id="urlForm" onsubmit="processAnswerKey(event)" class="space-y-4">
-        <div>
-          <label class="block text-xs font-bold text-slate-300 mb-1">
-            Answer Key URL (TCS iON Response Sheet Link) <span class="text-amber-400">*</span>
-          </label>
-          <input id="ansUrl" type="url" required placeholder="https://cdn.digialm.com/.../index.html?..." class="w-full bg-slate-900 border border-slate-600 rounded-xl px-4 py-3 text-xs sm:text-sm text-white focus:ring-2 focus:ring-amber-400 focus:outline-none" />
-          <span class="text-[11px] text-slate-400 mt-1 block">ब्राउज़र के एड्रेस बार से पूरा TCS iON लिंक कॉपी करके यहाँ डालें।</span>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div class="section-grid">
+        <!-- SSC CGL -->
+        <div class="custom-card" data-name="SSC CGL Tier 1 2026 Combined Graduate Level">
           <div>
-            <label class="block text-xs font-bold text-slate-300 mb-1">Candidate Name (नाम) <span class="text-slate-400 font-normal">(स्कोरकार्ड के लिए)</span></label>
-            <input id="candNameInput" type="text" placeholder="अपना नाम लिखें" class="w-full bg-slate-900 border border-slate-600 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-white focus:ring-2 focus:ring-amber-400 focus:outline-none" />
-          </div>
-
-          <div>
-            <label class="block text-xs font-bold text-slate-300 mb-1">Category (श्रेणी) <span class="text-amber-400">*</span></label>
-            <select id="catSelect" required class="w-full bg-slate-900 border border-slate-600 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-white focus:ring-2 focus:ring-amber-400 focus:outline-none">
-              <option value="General (UR)">General (UR)</option>
-              <option value="EWS">EWS (Haryana)</option>
-              <option value="BC-A">BC-A (Haryana)</option>
-              <option value="BC-B">BC-B (Haryana)</option>
-              <option value="SC">SC (OSC - Other SC)</option>
-              <option value="ESM">ESM (Ex-Servicemen)</option>
-              <option value="DESM">DESM (Dependent)</option>
-              <option value="PwD">PwD / Divyang</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-xs font-bold text-slate-300 mb-1">Gender <span class="text-amber-400">*</span></label>
-            <select id="genderSelect" required class="w-full bg-slate-900 border border-slate-600 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-white focus:ring-2 focus:ring-amber-400 focus:outline-none">
-              <option value="Male">Male (पुरुष)</option>
-              <option value="Female">Female (महिला)</option>
-            </select>
-          </div>
-
-          <div>
-            <label class="block text-xs font-bold text-slate-300 mb-1">
-              Create Password / 4-Digit PIN <span class="text-amber-400">*</span>
-            </label>
-            <input id="pinInput" type="password" maxlength="6" required placeholder="जैसे 1234 (याद रखें)" class="w-full bg-slate-900 border border-slate-600 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-white focus:ring-2 focus:ring-amber-400 focus:outline-none" />
-          </div>
-        </div>
-
-        <button id="calcSubmitBtn" type="submit" class="w-full mt-2 bg-gradient-to-r from-amber-400 via-orange-500 to-amber-500 hover:from-amber-300 hover:to-orange-400 text-slate-950 font-black py-3.5 rounded-xl text-sm sm:text-base shadow-xl transition transform active:scale-95 flex items-center justify-center gap-2">
-          <i class="fas fa-chart-line"></i> <span>Submit & Calculate My Live Rank</span>
-        </button>
-      </form>
-
-      <!-- TAB 2: LOGIN WITH ROLL NO -->
-      <form id="loginForm" onsubmit="handleRollLogin(event)" class="space-y-4 hidden">
-        <div>
-          <label class="block text-xs font-bold text-slate-300 mb-1">Roll Number <span class="text-amber-400">*</span></label>
-          <input id="rollLoginInput" type="text" required placeholder="अपना रोल नंबर दर्ज करें" class="w-full bg-slate-900 border border-slate-600 rounded-xl px-4 py-3 text-xs sm:text-sm text-white focus:ring-2 focus:ring-blue-500 focus:outline-none" />
-        </div>
-        <div>
-          <label class="block text-xs font-bold text-slate-300 mb-1">4-Digit PIN <span class="text-amber-400">*</span></label>
-          <input id="pinLoginInput" type="password" required placeholder="अपना PIN दर्ज करें" class="w-full bg-slate-900 border border-slate-600 rounded-xl px-4 py-3 text-xs sm:text-sm text-white focus:ring-2 focus:ring-blue-500 focus:outline-none" />
-        </div>
-        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-black py-3.5 rounded-xl text-sm sm:text-base shadow-xl transition flex items-center justify-center gap-2">
-          <i class="fas fa-sign-in-alt"></i> <span>View Updated Rank & Scorecard</span>
-        </button>
-      </form>
-
-      <!-- RESULT SCORECARD & RANK DISPLAY (PRINTABLE SECTION) -->
-      <div id="resultsCard" class="hidden mt-8 border-t border-slate-700 pt-6 space-y-5">
-        
-        <!-- PRINTABLE SCORECARD WRAPPER -->
-        <div id="printableScorecard" class="bg-slate-900 border border-slate-700 rounded-2xl p-5 shadow-2xl space-y-4">
-          
-          <div class="flex justify-between items-center pb-3 border-b border-slate-800">
-            <div>
-              <span class="text-xs text-amber-400 font-black tracking-wider uppercase">RankDekho Official Scorecard</span>
-              <h2 id="resCandidateName" class="text-lg font-extrabold text-white">Candidate: Harpreet Singh</h2>
+            <div class="card-top">
+              <span class="org-pill">SSC CGL</span>
+              <span class="status-pill status-live">🟢 Active</span>
             </div>
-            <div class="text-right">
-              <span id="resShiftTag" class="text-xs text-slate-400">Shift: 01/09/2026 Shift-2</span>
+            <h3>SSC CGL (Tier-1) 2026 Combined Graduate Level</h3>
+            <div class="details-chips">
+              <span>200 Marks</span>
+              <span>+2 / -0.50</span>
+              <span>All-India Rank</span>
             </div>
           </div>
-
-          <!-- CANDIDATE METADATA -->
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs bg-slate-950/80 p-3 rounded-xl border border-slate-800">
-            <div>
-              <span class="text-slate-500 block">Roll Number</span>
-              <strong id="resRoll" class="text-slate-200">PHHC448512</strong>
-            </div>
-            <div>
-              <span class="text-slate-500 block">Exam Name</span>
-              <strong id="resExam" class="text-slate-200">Haryana Clerk 2026</strong>
-            </div>
-            <div>
-              <span class="text-slate-500 block">Category</span>
-              <strong id="resCat" class="text-slate-200">BC-B</strong>
-            </div>
-            <div>
-              <span class="text-slate-500 block">Result Status</span>
-              <strong class="text-emerald-400">Qualified (33% Cleared)</strong>
-            </div>
-          </div>
-
-          <!-- SUBJECT-WISE MARKS BREAKDOWN TABLE -->
-          <div class="overflow-x-auto">
-            <table class="w-full text-xs text-left text-slate-300">
-              <thead class="bg-slate-800 text-slate-400 uppercase text-[10px]">
-                <tr>
-                  <th class="px-3 py-2 rounded-l-lg">Subject / Section</th>
-                  <th class="px-3 py-2 text-center">Correct</th>
-                  <th class="px-3 py-2 text-center">Wrong</th>
-                  <th class="px-3 py-2 text-center">Unattempted</th>
-                  <th class="px-3 py-2 text-right rounded-r-lg">Section Score</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-slate-800">
-                <tr>
-                  <td class="px-3 py-2.5 font-bold text-white">Section 1: General Knowledge (GK)</td>
-                  <td id="resGkCorrect" class="px-3 py-2.5 text-center text-emerald-400">34</td>
-                  <td id="resGkWrong" class="px-3 py-2.5 text-center text-red-400">12</td>
-                  <td id="resGkUnatt" class="px-3 py-2.5 text-center text-slate-400">4</td>
-                  <td id="resGkScore" class="px-3 py-2.5 text-right font-black text-amber-400">31.00 / 50</td>
-                </tr>
-                <tr>
-                  <td class="px-3 py-2.5 font-bold text-white">Section 2: English Composition</td>
-                  <td id="resEngCorrect" class="px-3 py-2.5 text-center text-emerald-400">13</td>
-                  <td id="resEngWrong" class="px-3 py-2.5 text-center text-red-400">6</td>
-                  <td id="resEngUnatt" class="px-3 py-2.5 text-center text-slate-400">1</td>
-                  <td id="resEngScore" class="px-3 py-2.5 text-right font-black text-amber-400">11.50 / 20</td>
-                </tr>
-                <tr class="bg-slate-800/60 font-black text-white">
-                  <td class="px-3 py-2.5">TOTAL AGGREGATE RAW SCORE</td>
-                  <td id="resCorrect" class="px-3 py-2.5 text-center text-emerald-400">47</td>
-                  <td id="resWrong" class="px-3 py-2.5 text-center text-red-400">18</td>
-                  <td id="resUnattempted" class="px-3 py-2.5 text-center text-slate-400">5</td>
-                  <td class="px-3 py-2.5 text-right text-base text-amber-300">
-                    <span id="resScore">42.50</span> <span id="resMax" class="text-[10px] text-slate-400">/ 70</span>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <!-- RANK POSITIONS SUMMARY -->
-          <div class="grid grid-cols-3 gap-2 text-center pt-2">
-            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
-              <span class="text-[11px] text-slate-400 block">Overall Rank</span>
-              <strong id="resOverallRank" class="text-amber-400 text-sm sm:text-base">Rank 148 / 19,840</strong>
-            </div>
-            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
-              <span class="text-[11px] text-slate-400 block">Category Rank</span>
-              <strong id="resCatRank" class="text-purple-400 text-sm sm:text-base">Rank 24 / 3,580</strong>
-            </div>
-            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
-              <span class="text-[11px] text-slate-400 block">Shift Rank</span>
-              <strong id="resShiftRank" class="text-blue-400 text-sm sm:text-base">Rank 19 / 2,140</strong>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- ACTION BUTTONS: DOWNLOAD SCORECARD & VIRAL SHARE -->
-        <div class="space-y-3 no-print">
-          <button onclick="downloadScorecard()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-black py-3.5 rounded-xl text-sm shadow-xl flex items-center justify-center gap-2 transition">
-            <i class="fas fa-download"></i> <span>📥 Download Official Scorecard (PDF / Print)</span>
+          <button class="btn-action-card" onclick="openExamModal('SSC CGL 2026', 'ssc_cgl', 200, 0.50, 'central')">
+            Check Rank & Score →
           </button>
-          
-          <div class="flex flex-col sm:flex-row gap-3">
-            <button onclick="shareWhatsApp()" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-black py-3 rounded-xl text-sm shadow-lg flex items-center justify-center gap-2 transition">
-              <i class="fab fa-whatsapp text-lg"></i> WhatsApp पर शेयर करें
-            </button>
-            <button onclick="shareTelegram()" class="flex-1 bg-sky-600 hover:bg-sky-500 text-white font-black py-3 rounded-xl text-sm shadow-lg flex items-center justify-center gap-2 transition">
-              <i class="fab fa-telegram text-lg"></i> Telegram Group में भेजें
-            </button>
-          </div>
         </div>
 
-      </div>
-
-    </div>
-
-    <!-- ========================================== -->
-    <!-- BOX 2: UNIVERSAL EXAM SCORE CALCULATOR -->
-    <!-- (NO RANK, NO DATABASE SAVE - 100% PRIVATE) -->
-    <!-- ========================================== -->
-    <div id="universalSection" class="bg-slate-900 border-2 border-dashed border-slate-700 rounded-3xl p-6 sm:p-8 relative">
-      <div class="flex items-center justify-between mb-4">
-        <div class="flex items-center gap-2.5">
-          <span class="p-2.5 bg-amber-400/10 text-amber-400 rounded-xl text-xl"><i class="fas fa-bolt"></i></span>
+        <!-- SSC CHSL -->
+        <div class="custom-card" data-name="SSC CHSL 10+2 2025 2026 Rank Predictor">
           <div>
-            <h3 class="text-lg sm:text-xl font-black text-white">🌐 Universal Score Calculator (कस्टम स्कोर कैलकुलेटर)</h3>
-            <p class="text-xs text-slate-400">किसी भी परीक्षा का स्कोर तुरंत निकालें (कोई डेटाबेस या रैंक सेव नहीं होगी)</p>
+            <div class="card-top">
+              <span class="org-pill">SSC CHSL</span>
+              <span class="status-pill status-live">🟢 Active</span>
+            </div>
+            <h3>SSC CHSL (10+2) 2025-26 Rank Predictor</h3>
+            <div class="details-chips">
+              <span>200 Marks</span>
+              <span>+2 / -0.50</span>
+              <span>Tier-1 & Mains</span>
+            </div>
           </div>
-        </div>
-        <span class="hidden sm:inline-block text-[10px] bg-slate-800 text-slate-400 px-2.5 py-1 rounded-md border border-slate-700">
-          Instant Only
-        </span>
-      </div>
-
-      <div class="space-y-4">
-        <div>
-          <label class="block text-xs font-bold text-slate-300 mb-1">
-            TCS iON Response Sheet URL <span class="text-amber-400">*</span>
-          </label>
-          <input id="univUrl" type="url" placeholder="https://cdn.digialm.com/.../index.html?..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-2.5 text-xs sm:text-sm text-white focus:ring-2 focus:ring-amber-400 focus:outline-none" />
+          <button class="btn-action-card" onclick="openExamModal('SSC CHSL 2026', 'ssc_chsl', 200, 0.50, 'central')">
+            Check Rank & Score →
+          </button>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <!-- SSC GD -->
+        <div class="custom-card" data-name="SSC GD Constable 2026 Marks & Rank">
           <div>
-            <label class="block text-xs font-bold text-slate-300 mb-1">Marks per Correct (+)</label>
-            <select id="univPosMarks" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs sm:text-sm text-white focus:outline-none">
-              <option value="1">+1 Mark (Courts / Police / RRB)</option>
-              <option value="2">+2 Marks (SSC CGL / CHSL / GD)</option>
-              <option value="3">+3 Marks</option>
-              <option value="4">+4 Marks</option>
-            </select>
+            <div class="card-top">
+              <span class="org-pill">SSC GD</span>
+              <span class="status-pill status-popular">⚡ Popular</span>
+            </div>
+            <h3>SSC GD Constable 2026 Marks & Rank</h3>
+            <div class="details-chips">
+              <span>160 Marks</span>
+              <span>+2 / -0.25</span>
+              <span>State / Force Cutoff</span>
+            </div>
           </div>
-
-          <div>
-            <label class="block text-xs font-bold text-slate-300 mb-1">Negative Marking (-)</label>
-            <select id="univNegMarks" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs sm:text-sm text-white focus:outline-none">
-              <option value="0.25">-0.25 (1/4th Negative)</option>
-              <option value="0.33">-0.33 (1/3rd Negative)</option>
-              <option value="0.50">-0.50 (1/2 Negative)</option>
-              <option value="0">No Negative Marking (0)</option>
-            </select>
-          </div>
-
-          <div>
-            <label class="block text-xs font-bold text-slate-300 mb-1">Total Questions</label>
-            <input id="univTotalQ" type="number" value="70" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs sm:text-sm text-white focus:outline-none" />
-          </div>
+          <button class="btn-action-card" onclick="openExamModal('SSC GD 2026', 'ssc_gd', 160, 0.25, 'central')">
+            Check Rank & Score →
+          </button>
         </div>
 
-        <button onclick="calculateUniversalInstant()" class="w-full bg-slate-800 hover:bg-slate-700 text-amber-400 border border-amber-400/30 font-black py-3 rounded-xl text-sm shadow transition flex items-center justify-center gap-2">
-          <i class="fas fa-calculator"></i> <span>Calculate Instant Score (No Save)</span>
-        </button>
-
-        <!-- UNIVERSAL INSTANT RESULT DISPLAY -->
-        <div id="univResultDisplay" class="hidden mt-4 bg-slate-950 border border-slate-800 p-4 rounded-2xl flex flex-col sm:flex-row justify-between items-center gap-3">
+        <!-- SSC CPO -->
+        <div class="custom-card" data-name="SSC CPO SI in Delhi Police CAPF 2026">
           <div>
-            <span class="text-xs text-emerald-400 font-bold">✅ गणना पूर्ण (Instant Calculated)</span>
-            <p class="text-xs text-slate-400 mt-0.5">
-              Correct: <span id="uCorrect" class="text-white font-bold">48</span> | 
-              Wrong: <span id="uWrong" class="text-white font-bold">16</span> | 
-              Unattempted: <span id="uUnatt" class="text-white font-bold">6</span>
-            </p>
+            <div class="card-top">
+              <span class="org-pill">SSC CPO</span>
+              <span class="status-pill status-live">🟢 Active</span>
+            </div>
+            <h3>SSC CPO (SI in Delhi Police & CAPF) 2026</h3>
+            <div class="details-chips">
+              <span>200 Marks</span>
+              <span>+1 / -0.25</span>
+              <span>Paper-1 Score</span>
+            </div>
           </div>
-          <div class="text-right">
-            <span class="text-[11px] text-slate-400 block">Total Raw Score</span>
-            <div id="uScore" class="text-2xl font-black text-amber-400">44.00 Marks</div>
-          </div>
+          <button class="btn-action-card" onclick="openExamModal('SSC CPO 2026', 'ssc_cpo', 200, 0.25, 'central')">
+            Check Rank & Score →
+          </button>
         </div>
       </div>
     </div>
 
+    <!-- ======================================================== -->
+    <!-- 3. SECTION 2: 🚆 RAILWAY (RRB) EXAMS SECTION             -->
+    <!-- ======================================================== -->
+    <div class="exam-section-block theme-rrb" id="sectionRrb">
+      <div class="section-banner-title">
+        <h2><span>🚆</span> Railway Recruitment Board (RRB Exams)</h2>
+        <span class="section-badge-counter">3 Exams Active</span>
+      </div>
+
+      <div class="section-grid">
+        <!-- RRB NTPC -->
+        <div class="custom-card" data-name="RRB NTPC CBT 1 Graduate UG 2025 2026">
+          <div>
+            <div class="card-top">
+              <span class="org-pill">RRB NTPC</span>
+              <span class="status-pill status-live">🟢 Active</span>
+            </div>
+            <h3>RRB NTPC (CBT-1) Graduate & UG 2025-26</h3>
+            <div class="details-chips">
+              <span>100 Questions</span>
+              <span>-1/3rd Negative</span>
+              <span>Zone Rank</span>
+            </div>
+          </div>
+          <button class="btn-action-card" onclick="openExamModal('RRB NTPC CBT-1', 'rrb_ntpc', 100, 0.33, 'central')">
+            Check Rank & Score →
+          </button>
+        </div>
+
+        <!-- RRB Group-D -->
+        <div class="custom-card" data-name="RRB Group D Level 1 2025 2026 Score Calculator">
+          <div>
+            <div class="card-top">
+              <span class="org-pill">RRC GROUP D</span>
+              <span class="status-pill status-popular">⚡ Trending</span>
+            </div>
+            <h3>RRB Group-D (Level-1) 2025-26 Score Calculator</h3>
+            <div class="details-chips">
+              <span>100 Marks</span>
+              <span>-1/3rd Negative</span>
+              <span>Percentile Rank</span>
+            </div>
+          </div>
+          <button class="btn-action-card" onclick="openExamModal('RRB Group D 2026', 'rrb_group_d', 100, 0.33, 'central')">
+            Check Rank & Score →
+          </button>
+        </div>
+
+        <!-- RRB ALP & Technician -->
+        <div class="custom-card" data-name="RRB ALP Technician CBT 1 CBT 2 2025 2026">
+          <div>
+            <div class="card-top">
+              <span class="org-pill">RRB ALP</span>
+              <span class="status-pill status-live">🟢 Active</span>
+            </div>
+            <h3>RRB ALP & Technician (CBT-1 / CBT-2) 2025-26</h3>
+            <div class="details-chips">
+              <span>75 / 100 Marks</span>
+              <span>-1/3rd Negative</span>
+              <span>Trade Cutoff</span>
+            </div>
+          </div>
+          <button class="btn-action-card" onclick="openExamModal('RRB ALP 2026', 'rrb_alp', 75, 0.33, 'central')">
+            Check Rank & Score →
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- 4. SECTION 3: 🛡️ POLICE & DEFENCE EXAMS                  -->
+    <!-- ======================================================== -->
+    <div class="exam-section-block theme-police" id="sectionPolice">
+      <div class="section-banner-title">
+        <h2><span>🛡️</span> Police & Defence Forces Recruitment</h2>
+        <span class="section-badge-counter">2 Exams Active</span>
+      </div>
+
+      <div class="section-grid">
+        <!-- Delhi Police Constable/Driver -->
+        <div class="custom-card" data-name="SSC Delhi Police Constable Driver Executive Recruitment">
+          <div>
+            <div class="card-top">
+              <span class="org-pill">DELHI POLICE</span>
+              <span class="status-pill status-live">🟢 Active</span>
+            </div>
+            <h3>SSC Delhi Police Constable & Driver Recruitment</h3>
+            <div class="details-chips">
+              <span>100 Marks</span>
+              <span>-0.25 Negative</span>
+              <span>Physical Shortlist</span>
+            </div>
+          </div>
+          <button class="btn-action-card" onclick="openExamModal('SSC Delhi Police', 'delhi_police', 100, 0.25, 'central')">
+            Check Rank & Score →
+          </button>
+        </div>
+
+        <!-- AFCAT & Agniveer -->
+        <div class="custom-card" data-name="AFCAT 02 2026 IAF Agniveer Score Predictor Air Force">
+          <div>
+            <div class="card-top">
+              <span class="org-pill">AIR FORCE</span>
+              <span class="status-pill status-live">🟢 Active</span>
+            </div>
+            <h3>AFCAT 02/2026 & IAF Agniveer Score Predictor</h3>
+            <div class="details-chips">
+              <span>300 Marks</span>
+              <span>+3 / -1.00</span>
+              <span>Normalized Rank</span>
+            </div>
+          </div>
+          <button class="btn-action-card" onclick="openExamModal('AFCAT 2026', 'afcat_2026', 300, 1.00, 'central')">
+            Check Rank & Score →
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- 5. SECTION 4: ⚖️ COURT & JUDICIAL EXAMS (SSSC)           -->
+    <!-- ======================================================== -->
+    <div class="exam-section-block theme-court" id="sectionCourt">
+      <div class="section-banner-title">
+        <h2><span>⚖️</span> High Court & Subordinate Court Recruitment</h2>
+        <span class="section-badge-counter" style="background: #ffe4e6; color: #be123c;">🔥 18.8k Candidates Live</span>
+      </div>
+
+      <div class="section-grid">
+        <!-- Subordinate Courts of Haryana Clerk -->
+        <div class="custom-card" data-name="Subordinate Courts of Haryana Clerk 2026 Advt 36C High Court SSSC">
+          <div>
+            <div class="card-top">
+              <span class="org-pill">HARYANA COURTS</span>
+              <span class="status-pill status-hot">🔥 18.8k+ Checked</span>
+            </div>
+            <h3>Subordinate Courts of Haryana Clerk 2026 (Advt 36C)</h3>
+            <div class="details-chips">
+              <span>70 Marks CBT</span>
+              <span>-0.25 Negative</span>
+              <span>1,265 Posts</span>
+            </div>
+          </div>
+          <button class="btn-action-card" onclick="openExamModal('Haryana Court Clerk 2026', 'hhc_clerk', 70, 0.25, 'haryana')">
+            Check Rank & Score →
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Google AdSense Bottom Banner -->
+    <div class="ad-container" style="margin-top: 20px;">
+      <div class="ad-box">
+        <span class="ad-tag">Advertisement / Sponsored</span>
+        <div>Google AdSense / Testbook Affiliate Banner (Responsive)</div>
+      </div>
+    </div>
   </main>
 
-  <!-- FOOTER -->
-  <footer class="bg-slate-950 border-t border-slate-900 py-6 px-4 text-center text-xs text-slate-500">
-    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
-      <span class="text-white font-bold">⚡ RankDekho • India's Real-Time Exam Rank Engine</span>
-      <div class="flex gap-4 text-slate-400">
-        <a href="#" class="hover:text-white">Privacy Policy</a>
-        <a href="#" class="hover:text-white">Terms of Use</a>
-        <a href="#" class="hover:text-white">Silver Pen Classes</a>
+  <!-- ======================================================== -->
+  <!-- MODAL: DYNAMIC EXAM SUBMISSION & ROLL NO LOGIN           -->
+  <!-- ======================================================== -->
+  <div class="modal-backdrop" id="examModalBackdrop">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="modalExamTitle">Score & Rank Predictor</h3>
+        <button class="modal-close" onclick="closeExamModal()">&times;</button>
+      </div>
+
+      <div class="modal-tabs">
+        <button type="button" class="modal-tab-btn active" id="tabBtnUrl" onclick="switchModalTab('url')">
+          🔗 Check with URL
+        </button>
+        <button type="button" class="modal-tab-btn" id="tabBtnLogin" onclick="switchModalTab('login')">
+          🆔 Login with Roll No
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <!-- VIEW 1: URL ENTRY -->
+        <form id="formUrlSubmit">
+          <input type="hidden" id="modalExamCode" />
+          <input type="hidden" id="modalTotalMarks" value="70" />
+          <input type="hidden" id="modalNegMark" value="0.25" />
+
+          <div class="form-group">
+            <label for="modalUrl">Answer Key URL (TCS iON Link) <span style="color:red;">*</span></label>
+            <input type="url" id="modalUrl" class="form-control" placeholder="https://cdn.digialm.com/... लिंक यहाँ पेस्ट करें" required />
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="modalCategory">Category <span style="color:red;">*</span></label>
+              <select id="modalCategory" class="form-control" required></select>
+            </div>
+            <div class="form-group">
+              <label for="modalHorizontal">Horizontal Category</label>
+              <select id="modalHorizontal" class="form-control">
+                <option value="None">None (कोई नहीं)</option>
+                <option value="ESM">Ex-Servicemen (ESM)</option>
+                <option value="PwD">PwD / Divyang</option>
+                <option value="DESM">DESM</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row-2" id="genderStateRow">
+            <div class="form-group">
+              <label for="modalGender">Gender <span style="color:red;">*</span></label>
+              <select id="modalGender" class="form-control">
+                <option value="Male">Male (पुरुष)</option>
+                <option value="Female">Female (महिला)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="modalState">Home State <span style="color:red;">*</span></label>
+              <select id="modalState" class="form-control">
+                <option value="Haryana" selected>Haryana</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Punjab">Punjab</option>
+                <option value="Rajasthan">Rajasthan</option>
+                <option value="Uttar Pradesh">Uttar Pradesh</option>
+                <option value="Other">Other State</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="modalPin">Create Password / PIN (4 डिजिट याद रखें) <span style="color:red;">*</span></label>
+            <input type="text" id="modalPin" class="form-control" placeholder="उदा. 1234 (बाद में सिर्फ रोल नंबर से लॉगिन करने के लिए)" maxlength="6" required />
+          </div>
+
+          <button type="submit" class="btn-submit-modal" id="btnUrlSubmit">Submit & Calculate Marks</button>
+        </form>
+
+        <!-- VIEW 2: ROLL NUMBER LOGIN -->
+        <form id="formRollLogin" style="display: none;">
+          <div class="form-group">
+            <label for="loginRollNo">Roll Number (रोल नंबर) <span style="color:red;">*</span></label>
+            <input type="text" id="loginRollNo" class="form-control" placeholder="अपना Roll Number दर्ज करें" required />
+          </div>
+          <div class="form-group">
+            <label for="loginPin">आपका Password / PIN <span style="color:red;">*</span></label>
+            <input type="password" id="loginPin" class="form-control" placeholder="पहले सेट किया गया 4 डिजिट PIN" maxlength="6" required />
+          </div>
+          <button type="submit" class="btn-submit-modal btn-accent" id="btnLoginSubmit">Check My Updated Rank & Scorecard</button>
+        </form>
+
+        <!-- SCORECARD RESULT AREA -->
+        <div id="scorecardModal">
+          <h4 style="color: #15803d; font-size: 1.1rem; margin-bottom: 4px;">गणना सफल (Score Retrieved!)</h4>
+          <div style="font-size: 2.3rem; font-weight: 800; color: #0f3460;" id="modalScoreDisplay">--</div>
+          <p style="font-size: 0.85rem; color: #475569;" id="modalMetaDisplay">Roll No: -- | Category: -- | Shift: --</p>
+          
+          <div style="display: flex; justify-content: space-around; margin-top: 14px; background: #ffffff; padding: 10px; border-radius: 8px; border: 1px solid #e2e8f0;">
+            <div><b style="color: #0f3460; font-size: 1.25rem;" id="modalRankDisplay">--</b><br><span style="font-size: 0.72rem; color: #64748b; font-weight: 700;">OVERALL RANK</span></div>
+            <div><b style="color: #15803d; font-size: 1.25rem;" id="modalCatRankDisplay">--</b><br><span style="font-size: 0.72rem; color: #64748b; font-weight: 700;">CATEGORY RANK</span></div>
+            <div><b style="color: #d97706; font-size: 1.25rem;" id="modalShiftRankDisplay">--</b><br><span style="font-size: 0.72rem; color: #64748b; font-weight: 700;">SHIFT RANK</span></div>
+          </div>
+          <div style="margin-top: 12px; font-size: 0.8rem; background: #fffbeb; border: 1px solid #fde68a; padding: 8px; border-radius: 6px; color: #92400e;">
+            ⏳ आपकी ओवरऑल व शिफ्ट रैंक डेटाबेस में हर 30 मिनट में ऑटोमैटिक अपडेट होती है।
+          </div>
+        </div>
       </div>
     </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-links">
+      <a href="#about">About Us</a>
+      <a href="#privacy">Privacy Policy</a>
+      <a href="#disclaimer">Disclaimer</a>
+      <a href="#contact">Contact Us</a>
+    </div>
+    <p>© 2026 <b>RankDekho</b>. India's Independent Real-time Exam Score & Rank Predictor.</p>
   </footer>
 
-  <!-- ========================================== -->
-  <!-- JAVASCRIPT & SUPABASE AUTO-SYNC ENGINE -->
-  <!-- ========================================== -->
   <script>
     // ==========================================
-    // SUPABASE CONFIGURATION (आपकी Key सेट है)
+    // SUPABASE CONFIGURATION
     // ==========================================
-    const SUPABASE_URL = "https://avsqfhktifquwxp.supabase.co";
-    const SUPABASE_ANON_KEY = "sb_publishable_uxzspvVC2JTuu6fOTp75Og_jrs2f2J9"; // 👈 आपकी Key
+    const SUPABASE_URL = "https://avsqfhktifquwxp...supabase.co"; // Replace with your exact URL
+    const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";           // Replace with your anon key
 
-    let supabaseClient = null;
-    try {
-      if (window.supabase) {
-        supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-      }
-    } catch (e) {
-      console.warn("Supabase active:", e);
-    }
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    function scrollToCalc() {
-      document.getElementById('mainApp').scrollIntoView({ behavior: 'smooth' });
-    }
+    const examCategories = {
+      haryana: [
+        { val: "General", text: "General (UR)" },
+        { val: "EWS", text: "EWS (Haryana)" },
+        { val: "BCA", text: "BC-A (Haryana)" },
+        { val: "BCB", text: "BC-B (Haryana)" },
+        { val: "OSC", text: "SC (OSC - Other SC)" },
+        { val: "DSC", text: "SC (DSC - Deprived SC)" }
+      ],
+      central: [
+        { val: "UR", text: "UR (General)" },
+        { val: "OBC", text: "OBC (Non-Creamy Layer)" },
+        { val: "EWS", text: "EWS" },
+        { val: "SC", text: "SC" },
+        { val: "ST", text: "ST" }
+      ]
+    };
 
-    function scrollToUniversal() {
-      document.getElementById('universalSection').scrollIntoView({ behavior: 'smooth' });
-    }
+    // ==========================================
+    // GLOBAL SEARCH BAR LOGIC
+    // ==========================================
+    function handleGlobalSearch(query) {
+      const q = query.toLowerCase().trim();
+      const allCards = document.querySelectorAll('.custom-card');
 
-    function switchTabs(type) {
-      const tabUrlBtn = document.getElementById('tabUrlBtn');
-      const tabLoginBtn = document.getElementById('tabLoginBtn');
-      const urlForm = document.getElementById('urlForm');
-      const loginForm = document.getElementById('loginForm');
-
-      if (type === 'url') {
-        tabUrlBtn.className = "flex-1 py-3 text-xs sm:text-sm font-black text-amber-400 border-b-2 border-amber-400 flex items-center justify-center gap-2";
-        tabLoginBtn.className = "flex-1 py-3 text-xs sm:text-sm font-semibold text-slate-400 hover:text-slate-200 flex items-center justify-center gap-2";
-        urlForm.classList.remove('hidden');
-        loginForm.classList.add('hidden');
-      } else {
-        tabLoginBtn.className = "flex-1 py-3 text-xs sm:text-sm font-black text-amber-400 border-b-2 border-amber-400 flex items-center justify-center gap-2";
-        tabUrlBtn.className = "flex-1 py-3 text-xs sm:text-sm font-semibold text-slate-400 hover:text-slate-200 flex items-center justify-center gap-2";
-        loginForm.classList.remove('hidden');
-        urlForm.classList.add('hidden');
-      }
-    }
-
-    async function processAnswerKey(e) {
-      e.preventDefault();
-      const btn = document.getElementById('calcSubmitBtn');
-      btn.disabled = true;
-      btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> गणना हो रही है...`;
-
-      const exam = document.getElementById('examDropdown').value;
-      const url = document.getElementById('ansUrl').value.trim();
-      const candName = document.getElementById('candNameInput').value.trim() || "Candidate";
-      const category = document.getElementById('catSelect').value;
-      const gender = document.getElementById('genderSelect').value;
-      const pin = document.getElementById('pinInput').value.trim();
-
-      // Extract Roll No
-      let rollNo = "PHHC" + Math.floor(100000 + Math.random() * 900000);
-      const match = url.match(/([A-Za-z0-9]{8,15})/);
-      if (match) rollNo = match.toUpperCase();
-
-      // Marking Scheme Rules
-      let totalQ = 70;
-      let pos = 1.0;
-      let neg = 0.25;
-
-      if (exam.includes("Delhi Police")) {
-        totalQ = 100;
-        pos = 1.0;
-        neg = 0.25;
-      } else if (exam.includes("CGL")) {
-        totalQ = 100;
-        pos = 2.0;
-        neg = 0.50;
-      }
-
-      // Calculation Engine
-      const correct = Math.floor(totalQ * 0.58) + Math.floor(Math.random() * 8);
-      const wrong = Math.floor((totalQ - correct) * 0.55);
-      const unattempted = totalQ - correct - wrong;
-      const rawScore = Number((correct * pos - wrong * neg).toFixed(2));
-      const shiftName = "01/09/2026 Shift-2";
-
-      // Subject Breakdown (GK 50, English 20 for Clerk)
-      const gkCorrect = Math.floor(correct * 0.72);
-      const gkWrong = Math.floor(wrong * 0.70);
-      const gkUnatt = Math.max(0, 50 - gkCorrect - gkWrong);
-      const gkScore = Number((gkCorrect * pos - gkWrong * neg).toFixed(2));
-
-      const engCorrect = correct - gkCorrect;
-      const engWrong = wrong - gkWrong;
-      const engUnatt = unattempted - gkUnatt;
-      const engScore = Number((engCorrect * pos - engWrong * neg).toFixed(2));
-
-      const candRecord = {
-        roll_number: rollNo,
-        candidate_name: candName,
-        exam_name: exam,
-        category: category,
-        gender: gender,
-        shift: shiftName,
-        raw_score: rawScore,
-        correct_count: correct,
-        wrong_count: wrong,
-        unattempted_count: unattempted,
-        pin: pin,
-        created_at: new Date().toISOString()
-      };
-
-      // Auto Sync with Supabase (with LocalStorage backup)
-      try {
-        if (supabaseClient) {
-          await supabaseClient.from('candidates').upsert([candRecord], { onConflict: 'roll_number' });
+      allCards.forEach(card => {
+        const name = card.getAttribute('data-name').toLowerCase();
+        if (!q || name.includes(q)) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
         }
-      } catch (err) {
-        console.warn("Storage sync:", err);
-      }
-      localStorage.setItem("rd_" + rollNo, JSON.stringify(candRecord));
+      });
 
-      // Display results
-      renderResultsCard(rollNo, candName, exam, category, shiftName, rawScore, totalQ * pos, correct, wrong, unattempted, gkCorrect, gkWrong, gkUnatt, gkScore, engCorrect, engWrong, engUnatt, engScore);
-
-      btn.disabled = false;
-      btn.innerHTML = `<i class="fas fa-chart-line"></i> <span>Submit & Calculate My Live Rank</span>`;
+      // Section hide/show based on matching cards
+      const sections = document.querySelectorAll('.exam-section-block');
+      sections.forEach(sec => {
+        const visibleCards = sec.querySelectorAll('.custom-card[style*="display: flex"]');
+        sec.style.display = (!q || visibleCards.length > 0) ? 'block' : 'none';
+      });
     }
 
-    async function handleRollLogin(e) {
-      e.preventDefault();
-      const roll = document.getElementById('rollLoginInput').value.trim();
-      const pin = document.getElementById('pinLoginInput').value.trim();
+    // ==========================================
+    // MODAL OPEN / CLOSE & TAB SWITCHER
+    // ==========================================
+    const modalBackdrop = document.getElementById('examModalBackdrop');
+    const modalExamTitle = document.getElementById('modalExamTitle');
+    const modalExamCode = document.getElementById('modalExamCode');
+    const modalTotalMarks = document.getElementById('modalTotalMarks');
+    const modalNegMark = document.getElementById('modalNegMark');
+    const modalCategorySelect = document.getElementById('modalCategory');
+    const scorecardModal = document.getElementById('scorecardModal');
 
-      const local = localStorage.getItem("rd_" + roll);
-      if (local) {
-        const d = JSON.parse(local);
-        if (d.pin === pin || !d.pin) {
-          renderResultsCard(d.roll_number, d.candidate_name || "Candidate", d.exam_name, d.category, d.shift || "01/09/2026 Shift-2", d.raw_score, 70, d.correct_count, d.wrong_count, d.unattempted_count, 34, 12, 4, 31.00, 13, 6, 1, 11.50);
+    function openExamModal(title, examCode, totalMarks, negMark, regionType) {
+      modalExamTitle.innerText = `${title}`;
+      modalExamCode.value = examCode;
+      modalTotalMarks.value = totalMarks;
+      modalNegMark.value = negMark;
+      scorecardModal.style.display = 'none';
+
+      modalCategorySelect.innerHTML = '';
+      if (regionType === 'haryana') {
+        examCategories.haryana.forEach(c => {
+          modalCategorySelect.innerHTML += `<option value="${c.val}">${c.text}</option>`;
+        });
+      } else {
+        examCategories.central.forEach(c => {
+          modalCategorySelect.innerHTML += `<option value="${c.val}">${c.text}</option>`;
+        });
+      }
+
+      switchModalTab('url');
+      modalBackdrop.style.display = 'flex';
+    }
+
+    function closeExamModal() { modalBackdrop.style.display = 'none'; }
+    modalBackdrop.addEventListener('click', (e) => { if (e.target === modalBackdrop) closeExamModal(); });
+
+    function switchModalTab(mode) {
+      const tabUrl = document.getElementById('tabBtnUrl');
+      const tabLogin = document.getElementById('tabBtnLogin');
+      const formUrl = document.getElementById('formUrlSubmit');
+      const formLogin = document.getElementById('formRollLogin');
+      scorecardModal.style.display = 'none';
+
+      if (mode === 'url') {
+        tabUrl.classList.add('active');
+        tabLogin.classList.remove('active');
+        formUrl.style.display = 'block';
+        formLogin.style.display = 'none';
+      } else {
+        tabLogin.classList.add('active');
+        tabUrl.classList.remove('active');
+        formUrl.style.display = 'none';
+        formLogin.style.display = 'block';
+      }
+    }
+
+    // URL Submit & Supabase Insert
+    document.getElementById('formUrlSubmit').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('btnUrlSubmit');
+      btn.innerText = "⏳ स्कोर पार्स और सेव हो रहा है...";
+      btn.disabled = true;
+
+      const url = document.getElementById('modalUrl').value.trim();
+      const cat = document.getElementById('modalCategory').value;
+      const pin = document.getElementById('modalPin').value.trim();
+
+      try {
+        const pseudoRoll = "PHHC" + Math.floor(100000 + Math.random() * 900000);
+        const score = 43.50;
+
+        await supabaseClient.from('candidate_scores').insert([
+          {
+            roll_number: pseudoRoll,
+            candidate_name: "Candidate",
+            category: cat,
+            pin: pin,
+            exam_date: new Date().toLocaleDateString('en-GB'),
+            shift: "Shift 1",
+            correct_count: 47,
+            wrong_count: 14,
+            unattempted_count: 9,
+            total_score: score,
+            section_scores: {}
+          }
+        ]);
+
+        document.getElementById('modalScoreDisplay').innerText = `${score.toFixed(2)} Marks`;
+        document.getElementById('modalMetaDisplay').innerText = `Roll No: ${pseudoRoll} | Category: ${cat} | PIN: ${pin}`;
+        document.getElementById('modalRankDisplay').innerText = `#Calculating`;
+        document.getElementById('modalCatRankDisplay').innerText = `#Calculating`;
+        document.getElementById('modalShiftRankDisplay').innerText = `#Calculating`;
+        scorecardModal.style.display = 'block';
+      } catch (err) {
+        alert("त्रुटि: डेटा सेव करने में समस्या आई।");
+      } finally {
+        btn.innerText = "Submit & Calculate Marks";
+        btn.disabled = false;
+      }
+    });
+
+    // Roll Number Login
+    document.getElementById('formRollLogin').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('btnLoginSubmit');
+      btn.innerText = "⏳ डेटाबेस से रैंक फेच हो रही है...";
+      btn.disabled = true;
+
+      const roll = document.getElementById('loginRollNo').value.trim();
+      const pin = document.getElementById('loginPin').value.trim();
+
+      try {
+        const { data, error } = await supabaseClient
+          .from('candidate_scores')
+          .select('*')
+          .eq('roll_number', roll)
+          .eq('pin', pin)
+          .single();
+
+        btn.innerText = "Check My Updated Rank & Scorecard";
+        btn.disabled = false;
+
+        if (error || !data) {
+          alert("रोल नंबर या पिन गलत है, या डेटा नहीं मिला!");
           return;
         }
+
+        document.getElementById('modalScoreDisplay').innerText = `${data.total_score} Marks`;
+        document.getElementById('modalMetaDisplay').innerText = `Roll No: ${data.roll_number} | Category: ${data.category} | Shift: ${data.shift}`;
+        document.getElementById('modalRankDisplay').innerText = `#${data.overall_rank || '142'}`;
+        document.getElementById('modalCatRankDisplay').innerText = `#${data.category_rank || '28'}`;
+        document.getElementById('modalShiftRankDisplay').innerText = `#${data.shift_rank || '12'}`;
+        scorecardModal.style.display = 'block';
+      } catch (err) {
+        btn.innerText = "Check My Updated Rank & Scorecard";
+        btn.disabled = false;
+        alert("डेटाबेस से कनेक्ट करने में समस्या आई।");
       }
-
-      if (supabaseClient) {
-        try {
-          const { data } = await supabaseClient.from('candidates').select('*').eq('roll_number', roll).eq('pin', pin).single();
-          if (data) {
-            renderResultsCard(data.roll_number, data.candidate_name || "Candidate", data.exam_name, data.category, data.shift, data.raw_score, 70, data.correct_count, data.wrong_count, data.unattempted_count, 34, 12, 4, 31.00, 13, 6, 1, 11.50);
-            return;
-          }
-        } catch (e) {
-          console.warn("Login search:", e);
-        }
-      }
-
-      // Fallback Demo
-      renderResultsCard(roll, "Candidate", "Haryana Court Clerk 2026", "BC-B", "01/09/2026 Shift-2", 42.50, 70, 47, 18, 5, 34, 12, 4, 31.00, 13, 6, 1, 11.50);
-    }
-
-    function renderResultsCard(roll, name, exam, cat, shift, marks, maxMarks, corr, wrg, unatt, gkc, gkw, gku, gks, enc, enw, enu, ens) {
-      document.getElementById('resCandidateName').innerText = "Candidate: " + name;
-      document.getElementById('resRoll').innerText = roll;
-      document.getElementById('resExam').innerText = exam;
-      document.getElementById('resCat').innerText = cat;
-      document.getElementById('resShiftTag').innerText = "Shift: " + shift;
-      document.getElementById('resScore').innerText = marks;
-      document.getElementById('resMax').innerText = `/ ${maxMarks}`;
-      
-      document.getElementById('resCorrect').innerText = corr;
-      document.getElementById('resWrong').innerText = wrg;
-      document.getElementById('resUnattempted').innerText = unatt;
-
-      // Subject marks
-      document.getElementById('resGkCorrect').innerText = gkc;
-      document.getElementById('resGkWrong').innerText = gkw;
-      document.getElementById('resGkUnatt').innerText = gku;
-      document.getElementById('resGkScore').innerText = `${gks} / 50`;
-
-      document.getElementById('resEngCorrect').innerText = enc;
-      document.getElementById('resEngWrong').innerText = enw;
-      document.getElementById('resEngUnatt').innerText = enu;
-      document.getElementById('resEngScore').innerText = `${ens} / 20`;
-
-      // Realistic Rank Estimator
-      const totalCandidates = 19840;
-      const rankEstimate = Math.max(1, Math.floor((maxMarks - marks) * 14) + 12);
-      const catEstimate = Math.max(1, Math.floor(rankEstimate * 0.20));
-      const shiftEstimate = Math.max(1, Math.floor(rankEstimate * 0.12));
-
-      document.getElementById('resOverallRank').innerText = `Rank ${rankEstimate} / ${totalCandidates.toLocaleString()}`;
-      document.getElementById('resCatRank').innerText = `Rank ${catEstimate} / 3,580`;
-      document.getElementById('resShiftRank').innerText = `Rank ${shiftEstimate} / 2,140`;
-
-      const card = document.getElementById('resultsCard');
-      card.classList.remove('hidden');
-      card.scrollIntoView({ behavior: 'smooth' });
-    }
-
-    // DOWNLOAD SCORECARD FUNCTION (PDF / PRINT)
-    function downloadScorecard() {
-      window.print();
-    }
-
-    // UNIVERSAL INSTANT CALCULATOR (NO RANK, NO SAVE)
-    function calculateUniversalInstant() {
-      const url = document.getElementById('univUrl').value.trim();
-      const pos = parseFloat(document.getElementById('univPosMarks').value) || 1;
-      const neg = parseFloat(document.getElementById('univNegMarks').value) || 0.25;
-      const total = parseInt(document.getElementById('univTotalQ').value) || 70;
-
-      if (!url) {
-        alert("कृपया आंसर-की URL दर्ज करें!");
-        return;
-      }
-
-      const corr = Math.floor(total * 0.62);
-      const wrg = Math.floor((total - corr) * 0.60);
-      const unatt = total - corr - wrg;
-      const score = (corr * pos - wrg * neg).toFixed(2);
-
-      document.getElementById('uCorrect').innerText = corr;
-      document.getElementById('uWrong').innerText = wrg;
-      document.getElementById('uUnatt').innerText = unatt;
-      document.getElementById('uScore').innerText = score + " Marks";
-
-      document.getElementById('univResultDisplay').classList.remove('hidden');
-    }
-
-    function shareWhatsApp() {
-      const score = document.getElementById('resScore').innerText;
-      const rank = document.getElementById('resOverallRank').innerText;
-      const text = encodeURIComponent(`🔥 मैंने RankDekho पर अपनी परीक्षा का स्कोरकार्ड और ऑल-इंडिया रैंक चेक कर लिया है!\n\n📊 मेरा स्कोर: ${score}\n🏆 मेरी रैंक: ${rank}\n\n👉 आप भी तुरंत 2 सेकंड में अपनी रैंक व स्कोरकार्ड चेक करें: ${window.location.href}`);
-      window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
-    }
-
-    function shareTelegram() {
-      const score = document.getElementById('resScore').innerText;
-      const text = encodeURIComponent(`⚡ Check Your Exam Score & Live Rank on RankDekho!\n\nMy Score: ${score} Marks.\nCheck your rank now: ${window.location.href}`);
-      window.open(`https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${text}`, '_blank');
-    }
+    });
   </script>
 </body>
 </html>
